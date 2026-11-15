@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vedika Shop</title>
+<title>Vedika Shop - Sab Kuch Sasta</title>
 <meta name="theme-color" content="#ff2e7e">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
@@ -15,9 +15,10 @@ body{background:#fff0f5;padding-bottom:90px}
 .cats button.active{background:#ff2e7e;color:white}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px}
 .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.card img{width:100%;height:150px;object-fit:cover}
+.card img{width:100%;height:160px;object-fit:cover}
 .card .info{padding:10px}
-.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:18px}.card .old{color:#888;text-decoration:line-through;font-size:12px}
+.card h3{font-size:13px;min-height:32px}.card .price{color:#ff2e7e;font-weight:bold;font-size:17px}.card .old{color:#888;text-decoration:line-through;font-size:12px}
+.save{background:#e8f5e9;color:#2e7d32;font-size:11px;padding:2px 6px;border-radius:5px;font-weight:bold}
 .btn{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold;margin-top:6px}
 .btn2{width:100%;background:white;color:#ff2e7e;border:1px solid #ff2e7e;padding:8px;border-radius:10px;font-weight:bold;margin-top:5px}
 .cartbar{position:fixed;bottom:0;left:0;right:0;background:#ff2e7e;color:white;display:flex;justify-content:space-between;padding:14px 16px;font-weight:bold;z-index:20}
@@ -29,8 +30,16 @@ body{background:#fff0f5;padding-bottom:90px}
 </head>
 <body>
 <div class="header"><h1>💖 Vedika Shop 💖</h1><p>Meesho Jaisa Sasta • Nagpur • COD + PhonePe</p></div>
-<div class="offer">🔥 NEW COLLECTION 🔥 2 Saman lo, 50 Rs OFF!</div>
-<div class="cats"><button class="active" onclick="filterCat('all',this)">All</button><button onclick="filterCat('dress',this)">👗 Fashion</button><button onclick="filterCat('sadi',this)">🥻 Sadi</button><button onclick="filterCat('makeup',this)">💄 Makeup</button><button onclick="filterCat('watch',this)">⌚ Watch</button><button onclick="filterCat('earbuds',this)">🎧 Earbuds</button><button onclick="filterCat('cover',this)">📱 Cover</button></div>
+<div class="offer">🔥 MEGA COLLECTION - 40+ Design 🔥<br>2 Saman lo, 50 Rs OFF!</div>
+<div class="cats">
+<button class="active" onclick="filterCat('all',this)">All (40+)</button>
+<button onclick="filterCat('sadi',this)">🥻 Sadi (12)</button>
+<button onclick="filterCat('earbuds',this)">🎧 Earbuds (8)</button>
+<button onclick="filterCat('dress',this)">👗 Fashion (10)</button>
+<button onclick="filterCat('makeup',this)">💄 Makeup (6)</button>
+<button onclick="filterCat('watch',this)">⌚ Watch (5)</button>
+<button onclick="filterCat('cover',this)">📱 Cover</button>
+</div>
 <div class="grid" id="grid"></div>
 <div class="cartbar" onclick="openCheckout()"><span>🛒 Cart: <span id="cartCount">0</span></span><span>View Cart & Order →</span></div>
 
@@ -40,17 +49,14 @@ body{background:#fff0f5;padding-bottom:90px}
 <input id="cName" placeholder="Tumhara Naam *">
 <input id="cPhone" placeholder="Mobile Number *">
 <textarea id="cAddr" placeholder="Poora Address *"></textarea>
-
-<!-- PHONEPE - LAPTOP PE BHI DIKHEGA -->
 <div style="background:#f3e8ff;padding:12px;border-radius:12px;margin:8px 0;text-align:center;border:2px solid #5f259f">
 <p style="font-weight:bold;color:#5f259f">💜 PHONEPE / GPAY SE PAY KARO</p>
-<p style="font-size:13px;margin:5px 0">UPI ID: <b>9975039791@ybl</b></p>
+<p style="font-size:13px">UPI: <b>9975039791@ybl</b></p>
 <img id="qrImg" src="" style="width:150px;height:150px;background:white;padding:5px;border-radius:10px">
-<p style="font-size:11px;margin:5px 0">👆 Laptop hai toh is QR ko Phone se Scan karo<br>Phone hai toh neeche Button dabao</p>
-<button class="paybtn" style="background:#5f259f;color:white" onclick="payUPI()">📱 PhonePe App Kholo - Pay Karo</button>
-<button class="paybtn" style="background:white;color:#5f259f;border:1px solid #5f259f" onclick="copyUPI()">📋 UPI ID Copy Karo</button>
+<p style="font-size:11px">Laptop hai toh QR Scan karo, Phone hai toh Button dabao</p>
+<button class="paybtn" style="background:#5f259f;color:white" onclick="payUPI()">📱 PhonePe App Kholo</button>
+<button class="paybtn" style="background:white;color:#5f259f;border:1px solid #5f259f" onclick="copyUPI()">📋 UPI Copy Karo</button>
 </div>
-
 <button class="paybtn" style="background:#25D366;color:white" onclick="placeOrder('PhonePe')">✅ PhonePe se Pay Kiya, Order Confirm Karo</button>
 <button class="paybtn" style="background:#ff9800;color:white" onclick="placeOrder('COD')">💵 COD - Cash Dunga</button>
 <button class="paybtn" style="background:#eee" onclick="closeCheckout()">Band Karo</button>
@@ -59,33 +65,72 @@ body{background:#fff0f5;padding-bottom:90px}
 <script>
 let MY_WHATSAPP="919975039791"; let MY_UPI="9975039791@ybl"; let MY_NAME="Vedika";
 const products=[
-{name:"Co-Ord Set",cat:"dress",price:449,old:899,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
-{name:"Printed Kurti",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Crop Top",cat:"dress",price:299,old:599,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
-{name:"Daily Wear Sadi",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Fancy Sadi",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
-{name:"Lipstick Set",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
-{name:"Makeup Kit",cat:"makeup",price:399,old:799,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
-{name:"Girls Watch",cat:"watch",price:399,old:899,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
-{name:"Wireless Earbuds",cat:"earbuds",price:449,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+/* ===== SADI - 12 OPTION ===== */
+{name:"Red Georgette Sadi - Wedding",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
+{name:"Pink Daily Wear Sadi",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+{name:"Blue Fancy Sadi with Blouse",cat:"sadi",price:549,old:1099,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
+{name:"Green Banarasi Sadi",cat:"sadi",price:699,old:1499,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=400"},
+{name:"Black Shimmer Sadi - Party",cat:"sadi",price:599,old:1199,img:"https://images.unsplash.com/photo-1609357605121-7a5c7b3b3b3a?w=400"},
+{name:"Yellow Cotton Sadi - Daily",cat:"sadi",price:349,old:699,img:"https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400"},
+{name:"Maroon Silk Sadi",cat:"sadi",price:799,old:1599,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+{name:"White Printed Sadi",cat:"sadi",price:449,old:899,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
+{name:"Orange Chiffon Sadi",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400"},
+{name:"Purple Designer Sadi",cat:"sadi",price:649,old:1299,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=400"},
+{name:"Rajasthani Bandhani Sadi",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
+{name:"Sequin Work Sadi - Function",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+
+/* ===== EARBUDS - 8 OPTION ===== */
+{name:"AirPods Pro Style - Black",cat:"earbuds",price:449,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Wireless Earbuds - White",cat:"earbuds",price:399,old:899,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
+{name:"Bluetooth Earbuds - Pink",cat:"earbuds",price:499,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Bass Earbuds - Blue",cat:"earbuds",price:549,old:1099,img:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"},
+{name:"Mini Earbuds - Small Size",cat:"earbuds",price:349,old:699,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=400"},
+{name:"Gaming Earbuds - LED Light",cat:"earbuds",price:599,old:1199,img:"https://images.unsplash.com/photo-1599669454699-248893623440?w=400"},
+{name:"Noise Cancelling Earbuds",cat:"earbuds",price:699,old:1499,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=400"},
+{name:"Long Battery Earbuds - 30hr",cat:"earbuds",price:649,old:1299,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
+
+/* ===== FASHION - 10 OPTION ===== */
+{name:"Co-Ord Set (Top + Pant)",cat:"dress",price:449,old:899,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
+{name:"Printed Kurti - Cotton",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Crop Top - Black",cat:"dress",price:299,old:599,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
+{name:"One Piece Dress - Flower",cat:"dress",price:449,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Denim Jeans - Girls",cat:"dress",price:499,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"Frock - Baby Pink",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
+{name:"Palazzo Set - Party",cat:"dress",price:549,old:1099,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"T-Shirt Combo (2 pc)",cat:"dress",price:349,old:699,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
+{name:"Jhumka Earrings - Gold",cat:"dress",price:179,old:399,img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
+{name:"Handbag - Girls Stylish",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400"},
+
+/* ===== MAKEUP - 6 OPTION ===== */
+{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
+{name:"Makeup Kit Mini - Full",cat:"makeup",price:399,old:799,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+{name:"Eyeliner + Kajal Combo",cat:"makeup",price:199,old:399,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+{name:"Face Powder + Blush",cat:"makeup",price:249,old:499,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400"},
+{name:"Nail Paint Set (6 pc)",cat:"makeup",price:179,old:349,img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400"},
+{name:"Brush Set (10 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+
+/* ===== WATCH - 5 OPTION ===== */
+{name:"Girls Watch - Pink",cat:"watch",price:399,old:899,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Smart Watch - Black",cat:"watch",price:899,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
+{name:"Couple Watch Set",cat:"watch",price:599,old:1199,img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400"},
+{name:"Gold Watch - Fancy",cat:"watch",price:449,old:999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Digital Watch - Girls",cat:"watch",price:349,old:699,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
+
+/* ===== COVER ===== */
 {name:"Cute Phone Cover",cat:"cover",price:149,old:299,img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
+{name:"Fancy Phone Cover - Glitter",cat:"cover",price:179,old:349,img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
 ];
 let cart=[];
-function render(f='all'){let g=document.getElementById('grid');g.innerHTML='';products.filter(p=>f==='all'||p.cat===f).forEach(p=>{g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`})}
+function render(f='all'){let g=document.getElementById('grid');g.innerHTML='';products.filter(p=>f==='all'||p.cat===f).forEach(p=>{g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><span class="save">✅ ${p.old-p.price} Bachao!</span><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`})}
 function filterCat(c,el){document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));el.classList.add('active');render(c)}
 function addToCart(i){cart.push(products[i]);document.getElementById('cartCount').innerText=cart.length;alert('Cart me add ho gaya!')}
 function buyNow(i){cart=[products[i]];document.getElementById('cartCount').innerText=1;openCheckout()}
 function openCheckout(){if(cart.length===0){alert('Pehle ADD TO CART karo!');return}let total=cart.reduce((s,p)=>s+p.price,0);let txt=cart.map(p=>`• ${p.name} - Rs.${p.price}`).join('<br>')+`<br><b>Total: Rs.${total}</b>`;document.getElementById('cartItems').innerHTML=txt;let upiLink=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR`;document.getElementById('qrImg').src=`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}`;document.getElementById('checkoutModal').style.display='flex'}
 function closeCheckout(){document.getElementById('checkoutModal').style.display='none'}
-function payUPI(){let total=cart.reduce((s,p)=>s+p.price,0);window.location.href=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR&tn=Vedika Shop Order`;alert('Agar Phone hai toh PhonePe khulega! Laptop hai toh QR Scan karo!')}
+function payUPI(){let total=cart.reduce((s,p)=>s+p.price,0);window.location.href=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR&tn=Vedika Shop Order`}
 function copyUPI(){navigator.clipboard.writeText(MY_UPI);alert('UPI Copy ho gaya: '+MY_UPI)}
 function placeOrder(pay){let n=document.getElementById('cName').value;let ph=document.getElementById('cPhone').value;let a=document.getElementById('cAddr').value;if(!n||!ph||!a){alert('Naam, Mobile, Address bharo!');return}let total=cart.reduce((s,p)=>s+p.price,0);let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: ${pay}%0A%0AName: ${n}%0AMobile: ${ph}%0AAddress: ${a}`;window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank')}
 render();
 </script>
 </body>
 </html>
-
-  
-
-
-
