@@ -1,6 +1,9 @@
-<!DOCTYPE html>
+
+
+  
+ <!DOCTYPE html>
 <html lang="hi">
-<head> 
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vedika Shop - Meesho Jaisa Sasta Bazaar</title>
@@ -42,10 +45,8 @@ body{background:#fff0f5;padding-bottom:90px}
 <button onclick="filterCat('cover',this)">📱 Cover</button>
 </div>
 <div class="grid" id="grid"></div>
-
 <div class="cartbar" onclick="openCheckout()"><span>🛒 Cart: <span id="cartCount">0</span> Item</span><span>View Cart & Order →</span></div>
 
-<!-- CHECKOUT MODAL - Meesho Jaisa -->
 <div class="modal" id="checkoutModal">
 <div class="box">
 <h2 style="text-align:center;color:#ff2e7e">🛒 Direct Order</h2>
@@ -53,28 +54,25 @@ body{background:#fff0f5;padding-bottom:90px}
 <input id="cName" placeholder="Tumhara Naam *">
 <input id="cPhone" placeholder="Mobile Number *">
 <textarea id="cAddr" placeholder="Poora Address - Ghar, Nagpur / Gaon, Pincode *"></textarea>
-<label style="font-size:13px;font-weight:bold">Payment Chuniye:</label>
-<select id="payMethod">
-<option value="COD">💵 COD - Cash on Delivery (Saman milne pe Cash)</option>
-<option value="PhonePe">💜 PhonePe / Google Pay se Abhi Pay Karo</option>
-</select>
-<div id="upiBox" style="display:none;background:#f3e8ff;padding:10px;border-radius:10px;margin-top:5px;text-align:center">
-<p style="font-size:13px">PhonePe / GPay khulega, is UPI pe pay karo:</p>
-<b id="upiIdText">vedikashop@upi</b><br>
-<button class="paybtn" style="background:#5f259f;color:white" onclick="payUPI()">📱 PhonePe / GPay se Pay Karo</button>
-<p style="font-size:11px;margin-top:5px">Pay karke Screenshot WhatsApp pe bhej dena!</p>
+
+<!-- PHONEPE HAMESHA DIKHEGA AB -->
+<div style="background:#f3e8ff;padding:12px;border-radius:12px;margin:8px 0;text-align:center;border:2px solid #5f259f">
+<p style="font-size:13px;font-weight:bold;color:#5f259f">💜 PHONEPE / GPAY SE PAY KARO</p>
+<p style="font-size:12px">UPI ID: <b>9975039791@ybl</b></p>
+<button class="paybtn" style="background:#5f259f;color:white" onclick="payUPI()">📱 PhonePe se Pay Karo - Click Karo</button>
+<p style="font-size:11px;margin-top:5px">PhonePe khulega, Pay karke neeche ORDER CONFIRM dabao!</p>
 </div>
-<button class="paybtn" style="background:#ff2e7e;color:white" onclick="placeOrder()">✅ ORDER CONFIRM KARO</button>
+
+<button class="paybtn" style="background:#25D366;color:white" onclick="placeOrder()">✅ ORDER CONFIRM KARO - WhatsApp pe Bhejo</button>
+<button class="paybtn" style="background:#ff9800;color:white" onclick="placeOrderCOD()">💵 COD - Cash Dunga, Order Karo</button>
 <button class="paybtn" style="background:#eee" onclick="closeCheckout()">Band Karo</button>
 </div>
 </div>
 
 <script>
-// ===== APNA NUMBER / UPI YAHAN DALO =====
-let MY_WHATSAPP = "919975039791"; // <-- Apna WhatsApp Number
-let MY_UPI = "9975039791@upi"; // <-- Apni UPI ID yahan dalo - jaise 98XXXX@okhdfc
-let MY_NAME = "Vedika";
-
+let MY_WHATSAPP = "919975039791";
+let MY_UPI = "9975039791@ybl";
+let MY_NAME = "VedikaThere";
 const products=[
 {name:"Co-Ord Set (Top + Pant)",cat:"dress",price:449,old:899,save:"450 Bachao!",img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
 {name:"Printed Kurti",cat:"dress",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
@@ -92,10 +90,11 @@ const products=[
 let cart=[];
 function render(filter='all'){
   const g=document.getElementById('grid'); g.innerHTML='';
-  products.filter(p=>filter==='all'||p.cat===filter).forEach((p,i)=>{
+  products.filter(p=>filter==='all'||p.cat===filter).forEach((p)=>{
     g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><span class="save">✅ ${p.save}</span><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">COD + PhonePe</p><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`;
   });
 }
+function filterCat(c,el){ document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active')); el.classList.add('active'); render(c); }
 function addToCart(idx){ cart.push(products[idx]); document.getElementById('cartCount').innerText=cart.length; alert(products[idx].name+' Cart me add ho gaya!'); }
 function buyNow(idx){ cart=[products[idx]]; document.getElementById('cartCount').innerText=1; openCheckout(); }
 function openCheckout(){
@@ -104,28 +103,33 @@ function openCheckout(){
   cart.forEach(p=>{ total+=p.price; txt+=`• ${p.name} - Rs.${p.price}<br>`; });
   txt+=`<br><b>Total: Rs.${total}</b> (Delivery Free - Nagpur)`;
   document.getElementById('cartItems').innerHTML=txt;
-  document.getElementById('upiIdText').innerText=MY_UPI;
   document.getElementById('checkoutModal').style.display='flex';
 }
 function closeCheckout(){ document.getElementById('checkoutModal').style.display='none'; }
-document.getElementById('payMethod').addEventListener('change',function(){ document.getElementById('upiBox').style.display = this.value==='PhonePe' ? 'block' : 'none'; });
 function payUPI(){
   let total=cart.reduce((s,p)=>s+p.price,0);
   let upiLink=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR&tn=Vedika Shop Order`;
   window.location.href=upiLink;
-  alert('PhonePe / Google Pay khul raha hai! Pay karke ORDER CONFIRM dabao!');
 }
 function placeOrder(){
   let name=document.getElementById('cName').value;
   let phone=document.getElementById('cPhone').value;
   let addr=document.getElementById('cAddr').value;
-  let pay=document.getElementById('payMethod').value;
   if(!name||!phone||!addr){ alert('Naam, Mobile aur Address bharo!'); return; }
   let total=cart.reduce((s,p)=>s+p.price,0);
   let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');
-  let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: ${pay}%0A%0AName: ${name}%0AMobile: ${phone}%0AAddress: ${addr}`;
+  let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: PhonePe - Pay Kiya%0A%0AName: ${name}%0AMobile: ${phone}%0AAddress: ${addr}`;
   window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank');
-  alert('Order WhatsApp pe chala gaya! Vedika jaldi reply karegi!');
+}
+function placeOrderCOD(){
+  let name=document.getElementById('cName').value;
+  let phone=document.getElementById('cPhone').value;
+  let addr=document.getElementById('cAddr').value;
+  if(!name||!phone||!addr){ alert('Naam, Mobile aur Address bharo!'); return; }
+  let total=cart.reduce((s,p)=>s+p.price,0);
+  let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');
+  let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: COD - Cash%0A%0AName: ${name}%0AMobile: ${phone}%0AAddress: ${addr}`;
+  window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank');
 }
 render();
 </script>
