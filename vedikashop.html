@@ -1,96 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
-<title>Vedika Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vedika Shop - Sasta Bazaar</title>
+<meta name="theme-color" content="#ff2e7e">
+<link rel="manifest" href="manifest.json">
 <style>
-body { font-family: Arial; background: #f2f2f2; margin: 0; }
-header { background: #232f3e; color: white; padding: 20px; text-align: center; }
-header h1 { margin: 0; }
-.container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; padding: 20px; }
-.card { background: white; width: 200px; padding: 15px; border-radius: 10px; text-align: center; }
-.card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
-.card button { background: #ff9900; border: none; padding: 10px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
-.card:hover{transform:scale(1.05); box-shadow:0 10px 20px #ff9a9a}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#fff0f5}
+.header{background:#ff2e7e;color:white;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
+.header h1{font-size:26px}.header p{font-size:13px;opacity:.9}
+.install{background:#111;color:#fff;padding:10px;text-align:center;font-size:14px}
+.install button{background:#ff2e7e;color:#fff;border:none;padding:7px 15px;border-radius:20px;font-weight:bold;margin-left:5px}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:12px}
+.cats button{white-space:nowrap;border:1px solid #ff2e7e;background:white;color:#ff2e7e;padding:8px 14px;border-radius:20px;font-weight:bold}
+.cats button.active{background:#ff2e7e;color:white}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 100px}
+.card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.card img{width:100%;height:150px;object-fit:cover}
+.card .info{padding:10px}
+.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:17px;margin:4px 0}.card .old{color:#888;text-decoration:line-through;font-size:12px}
+.card button{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #eee;font-weight:bold}
 </style>
 </head>
 <body>
-    <div style="background:#ff6b00; color:white; text-align:center; padding:12px; font-weight:bold; font-size:18px">🔥 BIG SALE - 50% OFF on All Products! 🔥</div>
-<header>
-<h1>🛒 Vedika Shop</h1>
-<p>Best Price - Best Quality</p>
-<p>Cart: <span id="cart">0</span> items</p>
-<a href="login.html" style="background:white; color:black; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold;">Login</a>
-</header>
 
-<div class="container">
-<div class="card">
-<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400">
-<h3>Watch</h3>
-<p>Rs. 999</p>
-<button onclick="addToCart()">Add to Cart</button>
+<div class="header">
+<h1>💖 Vedika Shop 💖</h1>
+<p>Meesho se Sasta • Har Order pe COD Available</p>
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400">
-<h3>Shoes</h3>
-<p>Rs. 1499</p>
-<button onclick="addToCart()">Add to Cart</button>
+<div class="install">📱 App jaisa chalana hai? <button onclick="alert('Upar 3 Dots > Add to Home Screen dabao, App ban jayegi!')">INSTALL APP</button></div>
+
+<div class="cats" id="cats">
+<button class="active" onclick="filterCat('all',this)">All</button>
+<button onclick="filterCat('makeup',this)">💄 Makeup</button>
+<button onclick="filterCat('dress',this)">👗 Dress</button>
+<button onclick="filterCat('sadi',this)">🥻 Sadi</button>
+<button onclick="filterCat('watch',this)">⌚ Watch</button>
+<button onclick="filterCat('earbuds',this)">🎧 Earbuds</button>
+<button onclick="filterCat('cover',this)">📱 Phone Cover</button>
+<button onclick="filterCat('sleeper',this)">🩴 Sleeper</button>
+<button onclick="filterCat('perfume',this)">🌸 Perfume</button>
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400">
-<h3>Headphones</h3>
-<p>Rs. 799</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400">
-<h3>Beautiful Dress</h3>
-<p>Rs. 1999</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
+<div class="grid" id="grid"></div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400">
-<h3>Stylish Bag</h3>
-<p>Rs. 1299</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
+<div class="bottom"><span>🏠 Home</span><span onclick="alert('WhatsApp pe Order karo!')">🛒 Cart</span><span onclick="alert('Vedika Shop - Chamursi')">👩 My Shop</span></div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400">
-<h3>Makeup Kit</h3>
-<p>Rs. 899</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-</div>
 <script>
-let count = 0;
-function addToCart() {
-  count++;<div class="card">
-<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400">
-<h3>Beautiful Dress</h3>
-<p>Rs. 1999</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400">
-<h3>Stylish Bag</h3>
-<p>Rs. 1299</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400">
-<h3>Makeup Kit</h3>
-<p>Rs. 899</p>
-<button onclick="addToCart()">Add to Cart</button>
-</div>
-  document.getElementById("cart").innerText = count;
-  alert("Added to Cart! Total: " + count);
+const products=[
+{name:"Pink Makeup Kit",cat:"makeup",price:699,old:1299,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+{name:"Bridal Makeup Set",cat:"makeup",price:799,old:1499,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400"},
+{name:"Stylish Dress",cat:"dress",price:999,old:1999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Party Wear Dress",cat:"dress",price:899,old:1799,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
+{name:"Fancy Sadi",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
+{name:"Designer Saree",cat:"sadi",price:999,old:1999,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+{name:"Girls Watch",cat:"watch",price:799,old:1599,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Smart Watch",cat:"watch",price:999,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
+{name:"Wireless Earbuds",cat:"earbuds",price:649,old:1299,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Bluetooth Earbuds Pro",cat:"earbuds",price:749,old:1499,img:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"},
+{name:"Cute Phone Cover",cat:"cover",price:399,old:799,img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
+{name:"Designer Phone Cover",cat:"cover",price:349,old:699,img:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400"},
+{name:"Comfy Sleeper",cat:"sleeper",price:499,old:999,img:"https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400"},
+{name:"Fashion Sleeper",cat:"sleeper",price:449,old:899,img:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400"},
+{name:"Rose Perfume",cat:"perfume",price:549,old:1099,img:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400"},
+{name:"Luxury Perfume",cat:"perfume",price:649,old:1299,img:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400"},
+];
+function render(filter='all'){
+  const g=document.getElementById('grid');
+  g.innerHTML='';
+  products.filter(p=>filter==='all'||p.cat===filter).forEach(p=>{
+    g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">✅ COD • Free Delivery • 5-7 Days</p><button onclick="order('${p.name}',${p.price})">ORDER NOW</button></div></div>`;
+  });
 }
+function order(name,price){
+  // YAHAN APNA WHATSAPP NUMBER DALO - 91 ke saath
+  let myNumber="9198XXXXXXXX"; 
+  let msg=`Hi Vedika! Mujhe ye order karna hai:%0A%0AProduct: ${name}%0APrice: Rs.${price}%0A%0AMera Naam:%0AMera Address:%0A`;
+  window.open(`https://wa.me/${myNumber}?text=${msg}`,'_blank');
+}
+function filterCat(c,btn){
+  document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); render(c);
+}
+render();
 </script>
-
 </body>
 </html>
+
+
