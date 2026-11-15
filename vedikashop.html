@@ -15,33 +15,36 @@ body{background:#fff0f5;padding-bottom:90px}
 .cats button.active{background:#ff2e7e;color:white}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px}
 .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.card img{width:100%;height:160px;object-fit:cover}
+.card img{width:100%;height:220px;object-fit:cover;background:#eee}
 .card .info{padding:10px}
 .card h3{font-size:13px;min-height:32px}.card .price{color:#ff2e7e;font-weight:bold;font-size:17px}.card .old{color:#888;text-decoration:line-through;font-size:12px}
 .save{background:#e8f5e9;color:#2e7d32;font-size:11px;padding:2px 6px;border-radius:5px;font-weight:bold}
+.colors{font-size:11px;color:#555;margin:4px 0}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #ccc;vertical-align:middle;margin-right:2px}
 .btn{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold;margin-top:6px}
 .btn2{width:100%;background:white;color:#ff2e7e;border:1px solid #ff2e7e;padding:8px;border-radius:10px;font-weight:bold;margin-top:5px}
 .cartbar{position:fixed;bottom:0;left:0;right:0;background:#ff2e7e;color:white;display:flex;justify-content:space-between;padding:14px 16px;font-weight:bold;z-index:20}
 .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:30;align-items:center;justify-content:center;padding:15px}
 .modal .box{background:white;width:100%;max-width:400px;border-radius:15px;padding:18px;max-height:90vh;overflow:auto}
-.modal input,.modal textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:10px}
+.modal input,.modal textarea,.modal select{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:10px}
 .paybtn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:bold;margin-top:8px;font-size:15px}
 </style>
 </head>
 <body>
-<div class="header"><h1>💖 Vedika Shop 💖</h1><p>Men & Women • Nagpur • COD + PhonePe</p></div>
-<div class="offer">🔥 NEW - MEN & WOMEN ALAG ALAG 🔥<br>Jeans Rs.509 • Tshirt Rs.199 • No Tight / Skinny</div>
+<div class="header"><h1>💖 Vedika Shop 💖</h1><p>Men & Women Alag • Nagpur • COD + PhonePe</p></div>
+<div class="offer">🔥 NEW FIX - Har Product Ki Apni Photo + Color 🔥<br>Jeans Rs.509 • Tshirt Rs.199 • Sadi Har Color Me</div>
 <div class="cats">
-<button class="active" onclick="filterCat('all',this)">All (80+)</button>
-<button onclick="filterCat('wjeans',this)">👩 Women Jeans (10)</button>
-<button onclick="filterCat('mjeans',this)">👨 Men Jeans (10)</button>
-<button onclick="filterCat('wtshirt',this)">👩 Women Tshirt (10)</button>
-<button onclick="filterCat('mtshirt',this)">👨 Men Tshirt (10)</button>
-<button onclick="filterCat('sadi',this)">🥻 Sadi (12)</button>
-<button onclick="filterCat('earbuds',this)">🎧 Earbuds (8)</button>
-<button onclick="filterCat('dress',this)">👗 Fashion (10)</button>
-<button onclick="filterCat('makeup',this)">💄 Makeup (6)</button>
-<button onclick="filterCat('watch',this)">⌚ Watch (5)</button>
+<button class="active" onclick="filterCat('all',this)">All (90+)</button>
+<button onclick="filterCat('wjeans',this)">👩 Women Jeans</button>
+<button onclick="filterCat('mjeans',this)">👨 Men Jeans</button>
+<button onclick="filterCat('wtshirt',this)">👩 Women Tshirt</button>
+<button onclick="filterCat('mtshirt',this)">👨 Men Tshirt</button>
+<button onclick="filterCat('sadi',this)">🥻 Sadi - Har Color</button>
+<button onclick="filterCat('wfashion',this)">👩 Women Fashion</button>
+<button onclick="filterCat('mfashion',this)">👨 Men Fashion</button>
+<button onclick="filterCat('earbuds',this)">🎧 Earbuds</button>
+<button onclick="filterCat('makeup',this)">💄 Makeup</button>
+<button onclick="filterCat('watch',this)">⌚ Watch</button>
 </div>
 <div class="grid" id="grid"></div>
 <div class="cartbar" onclick="openCheckout()"><span>🛒 Cart: <span id="cartCount">0</span></span><span>View Cart & Order →</span></div>
@@ -52,6 +55,8 @@ body{background:#fff0f5;padding-bottom:90px}
 <input id="cName" placeholder="Tumhara Naam *">
 <input id="cPhone" placeholder="Mobile Number *">
 <textarea id="cAddr" placeholder="Poora Address *"></textarea>
+<label style="font-size:12px">Size / Color likh do:</label>
+<input id="cSize" placeholder="Ex: Size M, Color Blue">
 <div style="background:#f3e8ff;padding:12px;border-radius:12px;margin:8px 0;text-align:center;border:2px solid #5f259f">
 <p style="font-weight:bold;color:#5f259f">💜 PHONEPE / GPAY SE PAY KARO</p>
 <p style="font-size:13px">UPI: <b>9975039791@ybl</b></p>
@@ -67,107 +72,111 @@ body{background:#fff0f5;padding-bottom:90px}
 <script>
 let MY_WHATSAPP="919975039791"; let MY_UPI="9975039791@ybl"; let MY_NAME="Vedika";
 const products=[
-/* ===== WOMEN JEANS - 10 - Rs.509 - NO TIGHT ===== */
-{name:"Women Wide Leg Jeans - Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Women Baggy Jeans - Light Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Women Straight Jeans - Dark Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
-{name:"Women Wide Leg Jeans - Black",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Women Baggy Jeans - Grey",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Women Straight Jeans - White",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400"},
-{name:"Women Wide Leg Jeans - Flared",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Women Baggy Jeans - Cargo Pocket",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Women Straight Jeans - Mom Fit Loose",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
-{name:"Women Wide Leg Jeans - Best Seller",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+/* ===== WOMEN JEANS - POSTER CHANGE - REAL JEANS PHOTO ===== */
+{name:"Women Wide Leg Jeans - Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",colors:"Blue, Black, Grey",pattern:"Wide Leg"},
+{name:"Women Baggy Jeans - Light Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=500",colors:"Light Blue, Dark Blue",pattern:"Baggy"},
+{name:"Women Straight Jeans - Dark Blue",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",colors:"Dark Blue, Black",pattern:"Straight Fit"},
+{name:"Women Wide Leg Jeans - Black",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500",colors:"Black, Blue",pattern:"Wide Leg"},
+{name:"Women Baggy Jeans - Grey Wash",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1565084888279-aca607ecce0c?w=500",colors:"Grey, Blue",pattern:"Baggy"},
+{name:"Women Straight Jeans - White",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500",colors:"White, Cream",pattern:"Straight"},
+{name:"Women Wide Leg - Flared",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",colors:"Blue, Black",pattern:"Wide Leg Flared"},
+{name:"Women Baggy Cargo Jeans",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=500",colors:"Blue, Grey, Black",pattern:"Baggy Cargo"},
+{name:"Women Straight - Mom Fit Loose",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",colors:"Blue, Light Blue",pattern:"Mom Fit Loose"},
+{name:"Women Wide Leg - Best Seller",cat:"wjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500",colors:"Blue, Black, White",pattern:"Wide Leg"},
 
-/* ===== MEN JEANS - 10 - Rs.509 - NO TIGHT ===== */
-{name:"Men Wide Leg Jeans - Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Men Baggy Jeans - Light Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Men Straight Jeans - Dark Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
-{name:"Men Wide Leg Jeans - Black",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Men Baggy Jeans - Grey",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Men Straight Jeans - White",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400"},
-{name:"Men Baggy Jeans - Cargo",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
-{name:"Men Straight Jeans - Classic Fit",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
-{name:"Men Wide Leg Jeans - Loose Fit",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
-{name:"Men Baggy Jeans - Best Seller",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+/* ===== MEN JEANS ===== */
+{name:"Men Wide Leg Jeans - Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",colors:"Blue, Black",pattern:"Wide Leg"},
+{name:"Men Baggy Jeans - Light Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=500",colors:"Light Blue, Grey",pattern:"Baggy"},
+{name:"Men Straight Jeans - Dark Blue",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",colors:"Dark Blue, Black",pattern:"Straight"},
+{name:"Men Wide Leg Jeans - Black",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",colors:"Black, Blue",pattern:"Wide Leg"},
+{name:"Men Baggy Jeans - Grey",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1565084888279-aca607ecce0c?w=500",colors:"Grey, Blue",pattern:"Baggy"},
+{name:"Men Straight Jeans - Classic",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",colors:"Blue, Black, Grey",pattern:"Straight"},
+{name:"Men Baggy Cargo Jeans",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=500",colors:"Blue, Green",pattern:"Cargo Baggy"},
+{name:"Men Straight Jeans - Loose Fit",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",colors:"Blue, Black",pattern:"Straight Loose"},
+{name:"Men Wide Leg - Loose",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=500",colors:"Blue, Grey",pattern:"Wide Leg"},
+{name:"Men Baggy Jeans - Best Seller",cat:"mjeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",colors:"Blue, Black",pattern:"Baggy"},
 
-/* ===== WOMEN TSHIRT - 10 - Rs.199 ===== */
-{name:"Women Oversized Tshirt - White",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Women Crop Tshirt - Black",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Women Printed Tshirt - Cute",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
-{name:"Women Plain Tshirt - Pink",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Women Graphic Tshirt - Girls",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Women Loose Fit Tshirt - Trending",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
-{name:"Women Baby Pink Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Women Yellow Tshirt - Summer",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Women Lavender Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Women Tshirt - Heart Print",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+/* ===== WOMEN TSHIRT - ALAG - ONLY WOMEN ===== */
+{name:"Women Oversized Tshirt - White",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"White, Black, Pink",pattern:"Oversized"},
+{name:"Women Crop Tshirt - Black",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Black, White, Pink",pattern:"Crop Top"},
+{name:"Women Printed Tshirt - Cute",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"Pink, White, Yellow",pattern:"Printed"},
+{name:"Women Plain Tshirt - Pink",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"Pink, Lavender, White",pattern:"Plain"},
+{name:"Women Graphic Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Black, White",pattern:"Graphic"},
+{name:"Women Loose Fit Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"Lavender, Pink, White",pattern:"Loose Fit"},
+{name:"Women Baby Pink Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"Pink, White",pattern:"Plain"},
+{name:"Women Yellow Tshirt - Summer",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Yellow, White, Pink",pattern:"Plain"},
+{name:"Women Lavender Tshirt",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"Lavender, Pink",pattern:"Plain"},
+{name:"Women Tshirt - Heart Print",cat:"wtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"White, Pink, Red",pattern:"Heart Print"},
 
-/* ===== MEN TSHIRT - 10 - Rs.199 ===== */
-{name:"Men Oversized Tshirt - White",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Men Tshirt - Black Plain",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Men Printed Tshirt - Cool",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
-{name:"Men Full Sleeve Tshirt",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Men Graphic Tshirt - Boys",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Men Loose Fit Tshirt",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
-{name:"Men Blue Tshirt - Plain",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
-{name:"Men Red Tshirt - Boys",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
-{name:"Men Tshirt - Sports",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
-{name:"Men Tshirt - Best Seller",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+/* ===== MEN TSHIRT - ALAG - ONLY MEN ===== */
+{name:"Men Oversized Tshirt - White",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"White, Black, Blue",pattern:"Oversized"},
+{name:"Men Tshirt - Black Plain",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Black, White, Grey",pattern:"Plain"},
+{name:"Men Printed Tshirt - Cool",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"Black, Blue, White",pattern:"Printed"},
+{name:"Men Full Sleeve Tshirt",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"Black, Blue, Grey",pattern:"Full Sleeve"},
+{name:"Men Graphic Tshirt - Boys",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Black, White",pattern:"Graphic"},
+{name:"Men Loose Fit Tshirt",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"White, Black, Green",pattern:"Loose Fit"},
+{name:"Men Blue Tshirt - Plain",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"Blue, Black, White",pattern:"Plain"},
+{name:"Men Red Tshirt",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",colors:"Red, Black, White",pattern:"Plain"},
+{name:"Men Tshirt - Sports",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500",colors:"Blue, Black, Green",pattern:"Sports"},
+{name:"Men Tshirt - Best Seller",cat:"mtshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",colors:"White, Black",pattern:"Oversized"},
 
-/* ===== SADI - 12 ===== */
-{name:"Red Georgette Sadi - Wedding",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Pink Daily Wear Sadi",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
-{name:"Blue Fancy Sadi with Blouse",cat:"sadi",price:549,old:1099,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
-{name:"Green Banarasi Sadi",cat:"sadi",price:699,old:1499,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=400"},
-{name:"Black Shimmer Sadi - Party",cat:"sadi",price:599,old:1199,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Yellow Cotton Sadi - Daily",cat:"sadi",price:349,old:699,img:"https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400"},
-{name:"Maroon Silk Sadi",cat:"sadi",price:799,old:1599,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
-{name:"White Printed Sadi",cat:"sadi",price:449,old:899,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Orange Chiffon Sadi",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400"},
-{name:"Purple Designer Sadi",cat:"sadi",price:649,old:1299,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=400"},
-{name:"Rajasthani Bandhani Sadi",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
-{name:"Sequin Work Sadi - Function",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+/* ===== SADI - HAR COLOR + PATTERN ===== */
+{name:"Sadi - Red",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",colors:"Red, Maroon, Pink",pattern:"Georgette - Wedding"},
+{name:"Sadi - Pink",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500",colors:"Pink, Baby Pink, Red",pattern:"Daily Wear - Plain"},
+{name:"Sadi - Blue",cat:"sadi",price:549,old:1099,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=500",colors:"Blue, Navy, Sky Blue",pattern:"Fancy - With Blouse"},
+{name:"Sadi - Green Banarasi",cat:"sadi",price:699,old:1499,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500",colors:"Green, Dark Green",pattern:"Banarasi Silk"},
+{name:"Sadi - Black Shimmer",cat:"sadi",price:599,old:1199,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",colors:"Black, Grey",pattern:"Shimmer - Party"},
+{name:"Sadi - Yellow Cotton",cat:"sadi",price:349,old:699,img:"https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500",colors:"Yellow, Orange",pattern:"Cotton - Daily"},
+{name:"Sadi - Maroon Silk",cat:"sadi",price:799,old:1599,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500",colors:"Maroon, Red",pattern:"Silk - Wedding"},
+{name:"Sadi - White Printed",cat:"sadi",price:449,old:899,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",colors:"White, Cream, Pink",pattern:"Printed - Floral"},
+{name:"Sadi - Orange Chiffon",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500",colors:"Orange, Yellow, Pink",pattern:"Chiffon - Light"},
+{name:"Sadi - Purple Designer",cat:"sadi",price:649,old:1299,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500",colors:"Purple, Lavender",pattern:"Designer - Stone Work"},
+{name:"Sadi - Bandhani",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=500",colors:"Red, Green, Yellow, Pink",pattern:"Rajasthani Bandhani"},
+{name:"Sadi - Sequin Function",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500",colors:"Red, Black, Golden, Pink",pattern:"Sequin Work"},
 
-/* ===== EARBUDS - 8 ===== */
-{name:"AirPods Pro Style - Black",cat:"earbuds",price:449,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
-{name:"Wireless Earbuds - White",cat:"earbuds",price:399,old:899,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
-{name:"Bluetooth Earbuds - Pink",cat:"earbuds",price:499,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
-{name:"Bass Earbuds - Blue",cat:"earbuds",price:549,old:1099,img:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"},
-{name:"Mini Earbuds - Small Size",cat:"earbuds",price:349,old:699,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=400"},
-{name:"Gaming Earbuds - LED Light",cat:"earbuds",price:599,old:1199,img:"https://images.unsplash.com/photo-1599669454699-248893623440?w=400"},
-{name:"Noise Cancelling Earbuds",cat:"earbuds",price:699,old:1499,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=400"},
-{name:"Long Battery Earbuds - 30hr",cat:"earbuds",price:649,old:1299,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
+/* ===== WOMEN FASHION - ALAG ===== */
+{name:"Women Co-Ord Set",cat:"wfashion",price:449,old:899,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500",colors:"Pink, Black, Blue",pattern:"Co-Ord Set"},
+{name:"Women Printed Kurti",cat:"wfashion",price:399,old:799,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500",colors:"Red, Blue, Green, Pink",pattern:"Cotton Kurti"},
+{name:"Women Crop Top - Black",cat:"wfashion",price:299,old:599,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500",colors:"Black, White, Pink",pattern:"Crop Top"},
+{name:"Women One Piece Dress",cat:"wfashion",price:449,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500",colors:"Pink, Blue, Yellow",pattern:"Flower Print"},
+{name:"Women Frock - Baby Pink",cat:"wfashion",price:399,old:799,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500",colors:"Pink, White",pattern:"Frock"},
+{name:"Women Jhumka Earrings",cat:"wfashion",price:179,old:399,img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500",colors:"Gold, Silver, Pink",pattern:"Jhumka"},
+{name:"Women Handbag",cat:"wfashion",price:399,old:799,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500",colors:"Black, Pink, White, Brown",pattern:"Handbag"},
 
-/* ===== FASHION - 10 ===== */
-{name:"Co-Ord Set (Top + Pant)",cat:"dress",price:449,old:899,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
-{name:"Printed Kurti - Cotton",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Crop Top - Black",cat:"dress",price:299,old:599,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
-{name:"One Piece Dress - Flower",cat:"dress",price:449,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Frock - Baby Pink",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
-{name:"Palazzo Set - Party",cat:"dress",price:549,old:1099,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Jhumka Earrings - Gold",cat:"dress",price:179,old:399,img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
-{name:"Handbag - Girls Stylish",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400"},
-{name:"Kurti Set - 2 pc",cat:"dress",price:499,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Denim Jeans - Girls",cat:"dress",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+/* ===== MEN FASHION - ALAG ===== */
+{name:"Men Shirt - Check",cat:"mfashion",price:399,old:799,img:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500",colors:"Blue, Black, White, Red",pattern:"Check Shirt"},
+{name:"Men Shirt - Plain",cat:"mfashion",price:349,old:699,img:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500",colors:"White, Black, Blue",pattern:"Plain Shirt"},
+{name:"Men Denim Jacket",cat:"mfashion",price:599,old:1199,img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500",colors:"Blue, Black",pattern:"Denim Jacket"},
+{name:"Men Track Pant",cat:"mfashion",price:399,old:799,img:"https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=500",colors:"Black, Grey, Blue",pattern:"Track Pant"},
+{name:"Men Kurta - Cotton",cat:"mfashion",price:449,old:899,img:"https://images.unsplash.com/photo-1597983062140-6a5c2b3e8d5a?w=500",colors:"White, Black, Blue, Green",pattern:"Kurta"},
+{name:"Men Wallet - Leather",cat:"mfashion",price:199,old:399,img:"https://images.unsplash.com/photo-1627123424574-724758594e93?w=500",colors:"Black, Brown",pattern:"Leather Wallet"},
+{name:"Men Cap - Stylish",cat:"mfashion",price:149,old:299,img:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500",colors:"Black, White, Blue",pattern:"Cap"},
 
-/* ===== MAKEUP - 6 ===== */
-{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
-{name:"Makeup Kit Mini - Full",cat:"makeup",price:399,old:799,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
-{name:"Eyeliner + Kajal Combo",cat:"makeup",price:199,old:399,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
-{name:"Face Powder + Blush",cat:"makeup",price:249,old:499,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400"},
-{name:"Nail Paint Set (6 pc)",cat:"makeup",price:179,old:349,img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400"},
-{name:"Brush Set (10 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+/* ===== EARBUDS - COLOR ===== */
+{name:"AirPods Pro Style - Black",cat:"earbuds",price:449,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500",colors:"Black, White, Pink",pattern:"Wireless"},
+{name:"Wireless Earbuds - White",cat:"earbuds",price:399,old:899,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=500",colors:"White, Black",pattern:"Wireless"},
+{name:"Bluetooth Earbuds - Pink",cat:"earbuds",price:499,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500",colors:"Pink, White, Blue",pattern:"Bluetooth"},
+{name:"Bass Earbuds - Blue",cat:"earbuds",price:549,old:1099,img:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=500",colors:"Blue, Black",pattern:"Bass"},
+{name:"Mini Earbuds",cat:"earbuds",price:349,old:699,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=500",colors:"Black, White",pattern:"Mini"},
+{name:"Gaming Earbuds - LED",cat:"earbuds",price:599,old:1199,img:"https://images.unsplash.com/photo-1599669454699-248893623440?w=500",colors:"Black, Blue",pattern:"Gaming LED"},
 
-/* ===== WATCH - 5 ===== */
-{name:"Girls Watch - Pink",cat:"watch",price:399,old:899,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
-{name:"Smart Watch - Black",cat:"watch",price:899,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
-{name:"Couple Watch Set",cat:"watch",price:599,old:1199,img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400"},
-{name:"Gold Watch - Fancy",cat:"watch",price:449,old:999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
-{name:"Digital Watch - Girls",cat:"watch",price:349,old:699,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
+/* ===== MAKEUP - MINI 199 ===== */
+{name:"Makeup Kit Mini - Full",cat:"makeup",price:199,old:399,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500",colors:"Pink, Nude, Red",pattern:"Mini Kit"},
+{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500",colors:"Red, Pink, Nude, Maroon",pattern:"Lipstick Set"},
+{name:"Eyeliner + Kajal Combo",cat:"makeup",price:199,old:399,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500",colors:"Black, Brown",pattern:"Eyeliner Combo"},
+{name:"Face Powder + Blush",cat:"makeup",price:249,old:499,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500",colors:"Pink, Natural",pattern:"Face Powder"},
+{name:"Nail Paint Set (6 pc)",cat:"makeup",price:179,old:349,img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500",colors:"Red, Pink, Black, Nude",pattern:"Nail Paint"},
+{name:"Brush Set (10 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500",colors:"Pink, Black, White",pattern:"Brush Set"},
+
+/* ===== WATCH - COLOR ===== */
+{name:"Girls Watch - Pink",cat:"watch",price:399,old:899,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",colors:"Pink, White, Black",pattern:"Girls Watch"},
+{name:"Smart Watch - Black",cat:"watch",price:899,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500",colors:"Black, Blue, Pink",pattern:"Smart Watch"},
+{name:"Couple Watch Set",cat:"watch",price:599,old:1199,img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500",colors:"Black, Gold, Silver",pattern:"Couple Set"},
+{name:"Gold Watch - Fancy",cat:"watch",price:449,old:999,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",colors:"Gold, Silver, Rose Gold",pattern:"Fancy"},
+{name:"Digital Watch - Girls",cat:"watch",price:349,old:699,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500",colors:"Pink, Black, White",pattern:"Digital"},
 ];
 let cart=[];
-function render(f='all'){let g=document.getElementById('grid');g.innerHTML='';products.filter(p=>f==='all'||p.cat===f).forEach(p=>{g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><span class="save">✅ ${p.old-p.price} Bachao!</span><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`})}
+function render(f='all'){let g=document.getElementById('grid');g.innerHTML='';products.filter(p=>f==='all'||p.cat===f).forEach(p=>{g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div class="colors">🎨 Color: ${p.colors}<br>✨ ${p.pattern}</div><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><span class="save">✅ ${p.old-p.price} Bachao!</span><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`})}
 function filterCat(c,el){document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));el.classList.add('active');render(c)}
 function addToCart(i){cart.push(products[i]);document.getElementById('cartCount').innerText=cart.length;alert('Cart me add ho gaya!')}
 function buyNow(i){cart=[products[i]];document.getElementById('cartCount').innerText=1;openCheckout()}
@@ -175,7 +184,7 @@ function openCheckout(){if(cart.length===0){alert('Pehle ADD TO CART karo!');ret
 function closeCheckout(){document.getElementById('checkoutModal').style.display='none'}
 function payUPI(){let total=cart.reduce((s,p)=>s+p.price,0);window.location.href=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR&tn=Vedika Shop Order`}
 function copyUPI(){navigator.clipboard.writeText(MY_UPI);alert('UPI Copy ho gaya: '+MY_UPI)}
-function placeOrder(pay){let n=document.getElementById('cName').value;let ph=document.getElementById('cPhone').value;let a=document.getElementById('cAddr').value;if(!n||!ph||!a){alert('Naam, Mobile, Address bharo!');return}let total=cart.reduce((s,p)=>s+p.price,0);let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: ${pay}%0A%0AName: ${n}%0AMobile: ${ph}%0AAddress: ${a}`;window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank')}
+function placeOrder(pay){let n=document.getElementById('cName').value;let ph=document.getElementById('cPhone').value;let a=document.getElementById('cAddr').value;let s=document.getElementById('cSize').value;if(!n||!ph||!a){alert('Naam, Mobile, Address bharo!');return}let total=cart.reduce((s,p)=>s+p.price,0);let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: ${pay}%0AColor/Size: ${s}%0A%0AName: ${n}%0AMobile: ${ph}%0AAddress: ${a}`;window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank')}
 render();
 </script>
 </body>
