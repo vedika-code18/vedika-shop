@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vedika Shop - Sasta Bazaar</title>
+<title>Vedika Shop - Sabse Sasta Bazaar</title>
 <meta name="theme-color" content="#ff2e7e">
-<link rel="manifest" href="manifest.json">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#fff0f5}
 .header{background:#ff2e7e;color:white;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
-.header h1{font-size:26px}.header p{font-size:13px;opacity:.9}
-.install{background:#111;color:#fff;padding:10px;text-align:center;font-size:14px}
-.install button{background:#ff2e7e;color:#fff;border:none;padding:7px 15px;border-radius:20px;font-weight:bold;margin-left:5px}
+.header h1{font-size:26px}.header p{font-size:13px}
+.offer{background:#fff3cd;color:#856404;padding:10px;text-align:center;font-size:13px;font-weight:bold}
 .cats{display:flex;gap:8px;overflow-x:auto;padding:12px}
 .cats button{white-space:nowrap;border:1px solid #ff2e7e;background:white;color:#ff2e7e;padding:8px 14px;border-radius:20px;font-weight:bold}
 .cats button.active{background:#ff2e7e;color:white}
@@ -20,20 +18,15 @@ body{background:#fff0f5}
 .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .card img{width:100%;height:150px;object-fit:cover}
 .card .info{padding:10px}
-.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:17px;margin:4px 0}.card .old{color:#888;text-decoration:line-through;font-size:12px}
-.card button{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold}
+.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:18px;margin:3px 0}.card .old{color:#888;text-decoration:line-through;font-size:12px}
+.save{background:#e8f5e9;color:#2e7d32;font-size:11px;padding:3px 6px;border-radius:5px;font-weight:bold;display:inline-block}
+.card button{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold;margin-top:6px}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #eee;font-weight:bold}
 </style>
 </head>
 <body>
-
-<div class="header">
-<h1>💖 Vedika Shop 💖</h1>
-<p>Meesho se Sasta • Har Order pe COD Available</p>
-</div>
-
-<div class="install">📱 App jaisa chalana hai? <button onclick="alert('Upar 3 Dots > Add to Home Screen dabao, App ban jayegi!')">INSTALL APP</button></div>
-
+<div class="header"><h1>💖 Vedika Shop 💖</h1><p>Market se Sasta • COD Available • Chamursi</p></div>
+<div class="offer">🎁 OFFER: 2 Saman lo, 50 Rs OFF! WhatsApp pe "COMBO" likh ke bhejo!</div>
 <div class="cats" id="cats">
 <button class="active" onclick="filterCat('all',this)">All</button>
 <button onclick="filterCat('makeup',this)">💄 Makeup</button>
@@ -41,54 +34,45 @@ body{background:#fff0f5}
 <button onclick="filterCat('sadi',this)">🥻 Sadi</button>
 <button onclick="filterCat('watch',this)">⌚ Watch</button>
 <button onclick="filterCat('earbuds',this)">🎧 Earbuds</button>
-<button onclick="filterCat('cover',this)">📱 Phone Cover</button>
+<button onclick="filterCat('cover',this)">📱 Cover</button>
 <button onclick="filterCat('sleeper',this)">🩴 Sleeper</button>
 <button onclick="filterCat('perfume',this)">🌸 Perfume</button>
+<button onclick="filterCat('jewellery',this)">💍 Jewellery</button>
 </div>
-
 <div class="grid" id="grid"></div>
-
-<div class="bottom"><span>🏠 Home</span><span onclick="alert('WhatsApp pe Order karo!')">🛒 Cart</span><span onclick="alert('Vedika Shop - Chamursi')">👩 My Shop</span></div>
-
+<div class="bottom"><span>🏠 Home</span><span onclick="alert('Koi bhi Product pe ORDER NOW dabao!')">🛒 Cart</span><span>👩 Vedika</span></div>
 <script>
 const products=[
-{name:"Pink Makeup Kit",cat:"makeup",price:699,old:1299,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
-{name:"Bridal Makeup Set",cat:"makeup",price:799,old:1499,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400"},
-{name:"Stylish Dress",cat:"dress",price:999,old:1999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Party Wear Dress",cat:"dress",price:899,old:1799,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
-{name:"Fancy Sadi",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Designer Saree",cat:"sadi",price:999,old:1999,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
-{name:"Girls Watch",cat:"watch",price:799,old:1599,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
-{name:"Smart Watch",cat:"watch",price:999,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
-{name:"Wireless Earbuds",cat:"earbuds",price:649,old:1299,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
-{name:"Bluetooth Earbuds Pro",cat:"earbuds",price:749,old:1499,img:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=400"},
-{name:"Cute Phone Cover",cat:"cover",price:399,old:799,img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
-{name:"Designer Phone Cover",cat:"cover",price:349,old:699,img:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400"},
-{name:"Comfy Sleeper",cat:"sleeper",price:499,old:999,img:"https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400"},
-{name:"Fashion Sleeper",cat:"sleeper",price:449,old:899,img:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400"},
-{name:"Rose Perfume",cat:"perfume",price:549,old:1099,img:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400"},
-{name:"Luxury Perfume",cat:"perfume",price:649,old:1299,img:"https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400"},
+{name:"Cute Phone Cover",cat:"cover",price:149,old:299,save:"150 Bachao!",img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
+{name:"Designer Phone Cover",cat:"cover",price:179,old:349,save:"170 Bachao!",img:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400"},
+{name:"Jhumka Earrings",cat:"jewellery",price:179,old:399,save:"220 Bachao!",img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
+{name:"Gold Earrings Set",cat:"jewellery",price:199,old:449,save:"250 Bachao!",img:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400"},
+{name:"Hair Clips Set (6 pc)",cat:"jewellery",price:149,old:299,save:"150 Bachao!",img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400"},
+{name:"Comfy Sleeper",cat:"sleeper",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400"},
+{name:"Fashion Sleeper",cat:"sleeper",price:279,old:549,save:"270 Bachao!",img:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400"},
+{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
+{name:"Nail Polish Set",cat:"makeup",price:249,old:499,save:"250 Bachao!",img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400"},
+{name:"Makeup Kit Mini",cat:"makeup",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+{name:"Wireless Earbuds",cat:"earbuds",price:449,old:999,save:"550 Bachao!",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Rose Perfume",cat:"perfume",price:279,old:599,save:"320 Bachao!",img:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400"},
+{name:"Girls Watch",cat:"watch",price:399,old:899,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Daily Wear Sadi",cat:"sadi",price:499,old:999,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
+{name:"Stylish Top / Dress",cat:"dress",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Party Top",cat:"dress",price:349,old:699,save:"350 Bachao!",img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
 ];
 function render(filter='all'){
-  const g=document.getElementById('grid');
-  g.innerHTML='';
+  const g=document.getElementById('grid'); g.innerHTML='';
   products.filter(p=>filter==='all'||p.cat===filter).forEach(p=>{
-    g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">✅ COD • Free Delivery • 5-7 Days</p><button onclick="order('${p.name}',${p.price})">ORDER NOW</button></div></div>`;
+    g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><span class="save">✅ ${p.save}</span><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">COD • Free Delivery</p><button onclick="order('${p.name}',${p.price})">ORDER NOW</button></div></div>`;
   });
 }
 function order(name,price){
-  // YAHAN APNA WHATSAPP NUMBER DALO - 91 ke saath
-  let myNumber="919975039791"; 
-  let msg=`Hi Vedika! Mujhe ye order karna hai:%0A%0AProduct: ${name}%0APrice: Rs.${price}%0A%0AMera Naam:%0AMera Address:%0A`;
+  let myNumber="919975039791";
+  let msg=`Hi Vedika! Order karna hai:%0AProduct: ${name}%0APrice: Rs.${price}%0A%0AMera Naam:%0AAddress:`;
   window.open(`https://wa.me/${myNumber}?text=${msg}`,'_blank');
 }
-function filterCat(c,btn){
-  document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active'); render(c);
-}
+function filterCat(c,btn){ document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(c); }
 render();
 </script>
 </body>
 </html>
-
-
