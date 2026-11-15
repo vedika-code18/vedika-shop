@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vedika Shop - Sign Up</title>
+<style>
+body{font-family:Arial; background:#fff0f5; display:flex; justify-content:center; align-items:center; height:100vh; margin:0}
+.box{background:white; padding:30px; border-radius:15px; width:300px; text-align:center; box-shadow:0 0 20px #ccc}
+input{width:90%; padding:10px; margin:10px 0; border:1px solid #ddd; border-radius:8px}
+button{width:95%; padding:12px; background:#ff6b00; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer}
+a{color:#ff6b00; text-decoration:none}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Create Account 💖</h2>
+<input type="text" id="name" placeholder="Your Name">
+<input type="email" placeholder="Email">
+<input type="password" placeholder="Create Password">
+<button onclick="signup()">Sign Up</button>
+<p id="msg"></p>
+<p>Already have account? <a href="login.html">Login</a></p>
+<p><a href="vedikashop.html">Back to Shop</a></p>
+</div>
+<script>
+function signup(){
+let n=document.getElementById("name").value;
+document.getElementById("msg").innerHTML="Welcome, "+n+"! Account Created ❤️";
+}
+</script>
+</body>
+</html>

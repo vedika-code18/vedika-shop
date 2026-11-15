@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vedika Shop</title>
+<style>
+body { font-family: Arial; background: #f2f2f2; margin: 0; }
+header { background: #232f3e; color: white; padding: 20px; text-align: center; }
+header h1 { margin: 0; }
+.container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; padding: 20px; }
+.card { background: white; width: 200px; padding: 15px; border-radius: 10px; text-align: center; }
+.card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+.card button { background: #ff9900; border: none; padding: 10px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.card:hover{transform:scale(1.05); box-shadow:0 10px 20px #ff9a9a}
+</style>
+</head>
+<body>
+    <div style="background:#ff6b00; color:white; text-align:center; padding:12px; font-weight:bold; font-size:18px">🔥 BIG SALE - 50% OFF on All Products! 🔥</div>
+<header>
+<h1>🛒 Vedika Shop</h1>
+<p>Best Price - Best Quality</p>
+<p>Cart: <span id="cart">0</span> items</p>
+<a href="login.html" style="background:white; color:black; padding:8px 15px; border-radius:5px; text-decoration:none; font-weight:bold;">Login</a>
+</header>
+
+<div class="container">
+<div class="card">
+<img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400">
+<h3>Watch</h3>
+<p>Rs. 999</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400">
+<h3>Shoes</h3>
+<p>Rs. 1499</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400">
+<h3>Headphones</h3>
+<p>Rs. 799</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400">
+<h3>Beautiful Dress</h3>
+<p>Rs. 1999</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400">
+<h3>Stylish Bag</h3>
+<p>Rs. 1299</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400">
+<h3>Makeup Kit</h3>
+<p>Rs. 899</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+</div>
+<script>
+let count = 0;
+function addToCart() {
+  count++;<div class="card">
+<img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400">
+<h3>Beautiful Dress</h3>
+<p>Rs. 1999</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400">
+<h3>Stylish Bag</h3>
+<p>Rs. 1299</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400">
+<h3>Makeup Kit</h3>
+<p>Rs. 899</p>
+<button onclick="addToCart()">Add to Cart</button>
+</div>
+  document.getElementById("cart").innerText = count;
+  alert("Added to Cart! Total: " + count);
+}
+</script>
+
+</body>
+</html>
