@@ -3,75 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vedika Shop - Sabse Sasta Bazaar</title>
+<title>Vedika Shop - Meesho Jaisa Sasta Bazaar</title>
 <meta name="theme-color" content="#ff2e7e">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#fff0f5}
+body{background:#fff0f5;padding-bottom:90px}
 .header{background:#ff2e7e;color:white;padding:15px;text-align:center;position:sticky;top:0;z-index:10}
-.header h1{font-size:26px}.header p{font-size:13px}
+.header h1{font-size:24px}.header p{font-size:12px}
 .offer{background:#fff3cd;color:#856404;padding:10px;text-align:center;font-size:13px;font-weight:bold}
 .cats{display:flex;gap:8px;overflow-x:auto;padding:12px}
 .cats button{white-space:nowrap;border:1px solid #ff2e7e;background:white;color:#ff2e7e;padding:8px 14px;border-radius:20px;font-weight:bold}
 .cats button.active{background:#ff2e7e;color:white}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 100px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px}
 .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .card img{width:100%;height:150px;object-fit:cover}
 .card .info{padding:10px}
-.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:18px;margin:3px 0}.card .old{color:#888;text-decoration:line-through;font-size:12px}
+.card h3{font-size:14px}.card .price{color:#ff2e7e;font-weight:bold;font-size:18px}.card .old{color:#888;text-decoration:line-through;font-size:12px}
 .save{background:#e8f5e9;color:#2e7d32;font-size:11px;padding:3px 6px;border-radius:5px;font-weight:bold;display:inline-block}
-.card button{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold;margin-top:6px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:12px;border-top:1px solid #eee;font-weight:bold}
+.btn{width:100%;background:#ff2e7e;color:white;border:none;padding:9px;border-radius:10px;font-weight:bold;margin-top:6px}
+.btn2{width:100%;background:white;color:#ff2e7e;border:1px solid #ff2e7e;padding:8px;border-radius:10px;font-weight:bold;margin-top:5px}
+.cartbar{position:fixed;bottom:0;left:0;right:0;background:#ff2e7e;color:white;display:flex;justify-content:space-between;padding:14px 16px;font-weight:bold;z-index:20}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:30;align-items:center;justify-content:center;padding:15px}
+.modal .box{background:white;width:100%;max-width:400px;border-radius:15px;padding:18px;max-height:90vh;overflow:auto}
+.modal input,.modal textarea,.modal select{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:10px}
+.paybtn{width:100%;padding:12px;border:none;border-radius:10px;font-weight:bold;margin-top:8px;font-size:15px}
 </style>
 </head>
 <body>
-<div class="header"><h1>💖 Vedika Shop 💖</h1><p>Market se Sasta • COD Available • Chamursi</p></div>
-<div class="offer">🎁 OFFER: 2 Saman lo, 50 Rs OFF! WhatsApp pe "COMBO" likh ke bhejo!</div>
+<div class="header"><h1>💖 Vedika Shop 💖</h1><p>Meesho Jaisa Sasta • Nagpur • COD + PhonePe</p></div>
+<div class="offer">🔥 NEW COLLECTION - Is Hafte ka Naya Fashion 🔥<br>2 Saman lo, 50 Rs OFF!</div>
 <div class="cats" id="cats">
 <button class="active" onclick="filterCat('all',this)">All</button>
-<button onclick="filterCat('makeup',this)">💄 Makeup</button>
-<button onclick="filterCat('dress',this)">👗 Dress</button>
+<button onclick="filterCat('dress',this)">👗 Fashion</button>
 <button onclick="filterCat('sadi',this)">🥻 Sadi</button>
+<button onclick="filterCat('makeup',this)">💄 Makeup</button>
 <button onclick="filterCat('watch',this)">⌚ Watch</button>
 <button onclick="filterCat('earbuds',this)">🎧 Earbuds</button>
 <button onclick="filterCat('cover',this)">📱 Cover</button>
-<button onclick="filterCat('sleeper',this)">🩴 Sleeper</button>
-<button onclick="filterCat('perfume',this)">🌸 Perfume</button>
-<button onclick="filterCat('jewellery',this)">💍 Jewellery</button>
 </div>
 <div class="grid" id="grid"></div>
-<div class="bottom"><span>🏠 Home</span><span onclick="alert('Koi bhi Product pe ORDER NOW dabao!')">🛒 Cart</span><span>👩 Vedika</span></div>
+
+<div class="cartbar" onclick="openCheckout()"><span>🛒 Cart: <span id="cartCount">0</span> Item</span><span>View Cart & Order →</span></div>
+
+<!-- CHECKOUT MODAL - Meesho Jaisa -->
+<div class="modal" id="checkoutModal">
+<div class="box">
+<h2 style="text-align:center;color:#ff2e7e">🛒 Direct Order</h2>
+<p id="cartItems" style="font-size:13px;background:#fff0f5;padding:10px;border-radius:10px"></p>
+<input id="cName" placeholder="Tumhara Naam *">
+<input id="cPhone" placeholder="Mobile Number *">
+<textarea id="cAddr" placeholder="Poora Address - Ghar, Nagpur / Gaon, Pincode *"></textarea>
+<label style="font-size:13px;font-weight:bold">Payment Chuniye:</label>
+<select id="payMethod">
+<option value="COD">💵 COD - Cash on Delivery (Saman milne pe Cash)</option>
+<option value="PhonePe">💜 PhonePe / Google Pay se Abhi Pay Karo</option>
+</select>
+<div id="upiBox" style="display:none;background:#f3e8ff;padding:10px;border-radius:10px;margin-top:5px;text-align:center">
+<p style="font-size:13px">PhonePe / GPay khulega, is UPI pe pay karo:</p>
+<b id="upiIdText">vedikashop@upi</b><br>
+<button class="paybtn" style="background:#5f259f;color:white" onclick="payUPI()">📱 PhonePe / GPay se Pay Karo</button>
+<p style="font-size:11px;margin-top:5px">Pay karke Screenshot WhatsApp pe bhej dena!</p>
+</div>
+<button class="paybtn" style="background:#ff2e7e;color:white" onclick="placeOrder()">✅ ORDER CONFIRM KARO</button>
+<button class="paybtn" style="background:#eee" onclick="closeCheckout()">Band Karo</button>
+</div>
+</div>
+
 <script>
+// ===== APNA NUMBER / UPI YAHAN DALO =====
+let MY_WHATSAPP = "919975039791"; // <-- Apna WhatsApp Number
+let MY_UPI = "9975039791@upi"; // <-- Apni UPI ID yahan dalo - jaise 98XXXX@okhdfc
+let MY_NAME = "Vedika";
+
 const products=[
-{name:"Cute Phone Cover",cat:"cover",price:149,old:299,save:"150 Bachao!",img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
-{name:"Designer Phone Cover",cat:"cover",price:179,old:349,save:"170 Bachao!",img:"https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400"},
-{name:"Jhumka Earrings",cat:"jewellery",price:179,old:399,save:"220 Bachao!",img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
-{name:"Gold Earrings Set",cat:"jewellery",price:199,old:449,save:"250 Bachao!",img:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400"},
-{name:"Hair Clips Set (6 pc)",cat:"jewellery",price:149,old:299,save:"150 Bachao!",img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400"},
-{name:"Comfy Sleeper",cat:"sleeper",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1603487742131-4160ec999306?w=400"},
-{name:"Fashion Sleeper",cat:"sleeper",price:279,old:549,save:"270 Bachao!",img:"https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400"},
-{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
-{name:"Nail Polish Set",cat:"makeup",price:249,old:499,save:"250 Bachao!",img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400"},
-{name:"Makeup Kit Mini",cat:"makeup",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
-{name:"Wireless Earbuds",cat:"earbuds",price:449,old:999,save:"550 Bachao!",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
-{name:"Rose Perfume",cat:"perfume",price:279,old:599,save:"320 Bachao!",img:"https://images.unsplash.com/photo-1541643600914-78b084683601?w=400"},
-{name:"Girls Watch",cat:"watch",price:399,old:899,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Co-Ord Set (Top + Pant)",cat:"dress",price:449,old:899,save:"450 Bachao!",img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
+{name:"Printed Kurti",cat:"dress",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Crop Top",cat:"dress",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
+{name:"One Piece Dress",cat:"dress",price:449,old:999,save:"550 Bachao!",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
 {name:"Daily Wear Sadi",cat:"sadi",price:499,old:999,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
-{name:"Stylish Top / Dress",cat:"dress",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Party Top",cat:"dress",price:349,old:699,save:"350 Bachao!",img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
+{name:"Fancy Georgette Sadi",cat:"sadi",price:499,old:999,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
+{name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,save:"300 Bachao!",img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
+{name:"Makeup Kit Mini",cat:"makeup",price:399,old:799,save:"400 Bachao!",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
+{name:"Girls Watch",cat:"watch",price:399,old:899,save:"500 Bachao!",img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
+{name:"Wireless Earbuds",cat:"earbuds",price:449,old:999,save:"550 Bachao!",img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
+{name:"Cute Phone Cover",cat:"cover",price:149,old:299,save:"150 Bachao!",img:"https://images.unsplash.com/photo-1601593346740-925612772716?w=400"},
+{name:"Jhumka Earrings",cat:"dress",price:179,old:399,save:"220 Bachao!",img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
 ];
+let cart=[];
 function render(filter='all'){
   const g=document.getElementById('grid'); g.innerHTML='';
-  products.filter(p=>filter==='all'||p.cat===filter).forEach(p=>{
-    g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><span class="save">✅ ${p.save}</span><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">COD • Free Delivery</p><button onclick="order('${p.name}',${p.price})">ORDER NOW</button></div></div>`;
+  products.filter(p=>filter==='all'||p.cat===filter).forEach((p,i)=>{
+    g.innerHTML+=`<div class="card"><img src="${p.img}"><div class="info"><h3>${p.name}</h3><span class="save">✅ ${p.save}</span><div><span class="old">Rs.${p.old}</span> <span class="price">Rs.${p.price}</span></div><p style="font-size:11px;color:green">COD + PhonePe</p><button class="btn" onclick="addToCart(${products.indexOf(p)})">ADD TO CART</button><button class="btn2" onclick="buyNow(${products.indexOf(p)})">BUY NOW</button></div></div>`;
   });
 }
-function order(name,price){
-  let myNumber="919975039791";
-  let msg=`Hi Vedika! Order karna hai:%0AProduct: ${name}%0APrice: Rs.${price}%0A%0AMera Naam:%0AAddress:`;
-  window.open(`https://wa.me/${myNumber}?text=${msg}`,'_blank');
+function addToCart(idx){ cart.push(products[idx]); document.getElementById('cartCount').innerText=cart.length; alert(products[idx].name+' Cart me add ho gaya!'); }
+function buyNow(idx){ cart=[products[idx]]; document.getElementById('cartCount').innerText=1; openCheckout(); }
+function openCheckout(){
+  if(cart.length===0){ alert('Pehle koi saman ADD TO CART karo!'); return; }
+  let total=0; let txt='';
+  cart.forEach(p=>{ total+=p.price; txt+=`• ${p.name} - Rs.${p.price}<br>`; });
+  txt+=`<br><b>Total: Rs.${total}</b> (Delivery Free - Nagpur)`;
+  document.getElementById('cartItems').innerHTML=txt;
+  document.getElementById('upiIdText').innerText=MY_UPI;
+  document.getElementById('checkoutModal').style.display='flex';
 }
-function filterCat(c,btn){ document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); render(c); }
+function closeCheckout(){ document.getElementById('checkoutModal').style.display='none'; }
+document.getElementById('payMethod').addEventListener('change',function(){ document.getElementById('upiBox').style.display = this.value==='PhonePe' ? 'block' : 'none'; });
+function payUPI(){
+  let total=cart.reduce((s,p)=>s+p.price,0);
+  let upiLink=`upi://pay?pa=${MY_UPI}&pn=${MY_NAME}&am=${total}&cu=INR&tn=Vedika Shop Order`;
+  window.location.href=upiLink;
+  alert('PhonePe / Google Pay khul raha hai! Pay karke ORDER CONFIRM dabao!');
+}
+function placeOrder(){
+  let name=document.getElementById('cName').value;
+  let phone=document.getElementById('cPhone').value;
+  let addr=document.getElementById('cAddr').value;
+  let pay=document.getElementById('payMethod').value;
+  if(!name||!phone||!addr){ alert('Naam, Mobile aur Address bharo!'); return; }
+  let total=cart.reduce((s,p)=>s+p.price,0);
+  let items=cart.map(p=>`${p.name} - Rs.${p.price}`).join('%0A');
+  let msg=`*NEW ORDER - Vedika Shop*%0A%0A${items}%0A%0ATotal: Rs.${total}%0APayment: ${pay}%0A%0AName: ${name}%0AMobile: ${phone}%0AAddress: ${addr}`;
+  window.open(`https://wa.me/${MY_WHATSAPP}?text=${msg}`,'_blank');
+  alert('Order WhatsApp pe chala gaya! Vedika jaldi reply karegi!');
+}
 render();
 </script>
 </body>
