@@ -30,9 +30,11 @@ body{background:#fff0f5;padding-bottom:90px}
 </head>
 <body>
 <div class="header"><h1>💖 Vedika Shop 💖</h1><p>Meesho Jaisa Sasta • Nagpur • COD + PhonePe</p></div>
-<div class="offer">🔥 MEGA COLLECTION - 40+ Design 🔥<br>2 Saman lo, 50 Rs OFF!</div>
+<div class="offer">🔥 MEGA DHAMAKA - JEANS 20 + TSHIRT 20 🔥<br>Jeans Rs.509 • Tshirt Rs.199 • 80+ Design</div>
 <div class="cats">
-<button class="active" onclick="filterCat('all',this)">All (40+)</button>
+<button class="active" onclick="filterCat('all',this)">All (80+)</button>
+<button onclick="filterCat('jeans',this)">👖 Jeans Rs.509 (20)</button>
+<button onclick="filterCat('tshirt',this)">👕 Tshirt Rs.199 (20)</button>
 <button onclick="filterCat('sadi',this)">🥻 Sadi (12)</button>
 <button onclick="filterCat('earbuds',this)">🎧 Earbuds (8)</button>
 <button onclick="filterCat('dress',this)">👗 Fashion (10)</button>
@@ -65,12 +67,56 @@ body{background:#fff0f5;padding-bottom:90px}
 <script>
 let MY_WHATSAPP="919975039791"; let MY_UPI="9975039791@ybl"; let MY_NAME="Vedika";
 const products=[
-/* ===== SADI - 12 OPTION ===== */
+/* ===== JEANS - 20 PC - SAB Rs.509 ===== */
+{name:"1. Blue Denim Jeans - Slim Fit",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"2. Black Jeans - High Waist",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"3. Light Blue Baggy Jeans",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
+{name:"4. Ripped Jeans - Fashion",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"5. White Jeans - Girls",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400"},
+{name:"6. Mom Fit Jeans - Trending",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"7. Cargo Jeans - Pocket Wala",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
+{name:"8. Skinny Jeans - Stretchable",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"9. Wide Leg Jeans - New Style",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"10. Dark Blue Jeans - Classic",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
+{name:"11. Grey Jeans - Girls",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"12. Bootcut Jeans - Stylish",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"13. Straight Fit Jeans",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
+{name:"14. Flared Jeans - Bell Bottom",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400"},
+{name:"15. Acid Wash Jeans",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"16. Printed Jeans - Fancy",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+{name:"17. Jeggings - Jeans + Legging",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=400"},
+{name:"18. Boyfriend Jeans - Loose",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=400"},
+{name:"19. Pink Tint Jeans",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=400"},
+{name:"20. Jeans - Best Seller",cat:"jeans",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
+
+/* ===== TSHIRT - 20 PC - SAB Rs.199 ===== */
+{name:"1. Oversized Tshirt - White",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"2. Crop Tshirt - Black",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"3. Printed Tshirt - Cute",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"4. Plain Tshirt - Pink",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"5. Graphic Tshirt - Girls",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"6. Full Sleeve Tshirt",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"7. Loose Fit Tshirt - Trending",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"8. Baby Pink Tshirt",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"9. Black & White Tshirt",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"10. Yellow Tshirt - Summer",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"11. Red Tshirt - Girls",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"12. Blue Tshirt - Plain",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"13. Green Tshirt - Cute Print",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"14. Lavender Tshirt",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"15. Oversized Tshirt - Black",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"16. Tshirt - Heart Print",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"17. Tshirt - Smiley Print",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+{name:"18. Tshirt - College Style",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400"},
+{name:"19. Tshirt - Sports",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400"},
+{name:"20. Tshirt - Best Seller",cat:"tshirt",price:199,old:499,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400"},
+
+/* ===== SADI - 12 ===== */
 {name:"Red Georgette Sadi - Wedding",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
 {name:"Pink Daily Wear Sadi",cat:"sadi",price:399,old:799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
 {name:"Blue Fancy Sadi with Blouse",cat:"sadi",price:549,old:1099,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
 {name:"Green Banarasi Sadi",cat:"sadi",price:699,old:1499,img:"https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=400"},
-{name:"Black Shimmer Sadi - Party",cat:"sadi",price:599,old:1199,img:"https://images.unsplash.com/photo-1609357605121-7a5c7b3b3b3a?w=400"},
+{name:"Black Shimmer Sadi - Party",cat:"sadi",price:599,old:1199,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
 {name:"Yellow Cotton Sadi - Daily",cat:"sadi",price:349,old:699,img:"https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400"},
 {name:"Maroon Silk Sadi",cat:"sadi",price:799,old:1599,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
 {name:"White Printed Sadi",cat:"sadi",price:449,old:899,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400"},
@@ -79,7 +125,7 @@ const products=[
 {name:"Rajasthani Bandhani Sadi",cat:"sadi",price:499,old:999,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=400"},
 {name:"Sequin Work Sadi - Function",cat:"sadi",price:899,old:1799,img:"https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400"},
 
-/* ===== EARBUDS - 8 OPTION ===== */
+/* ===== EARBUDS - 8 ===== */
 {name:"AirPods Pro Style - Black",cat:"earbuds",price:449,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
 {name:"Wireless Earbuds - White",cat:"earbuds",price:399,old:899,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
 {name:"Bluetooth Earbuds - Pink",cat:"earbuds",price:499,old:999,img:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400"},
@@ -89,19 +135,19 @@ const products=[
 {name:"Noise Cancelling Earbuds",cat:"earbuds",price:699,old:1499,img:"https://images.unsplash.com/photo-1608156639585-b3a032ef9689?w=400"},
 {name:"Long Battery Earbuds - 30hr",cat:"earbuds",price:649,old:1299,img:"https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400"},
 
-/* ===== FASHION - 10 OPTION ===== */
+/* ===== FASHION - 10 ===== */
 {name:"Co-Ord Set (Top + Pant)",cat:"dress",price:449,old:899,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
 {name:"Printed Kurti - Cotton",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
 {name:"Crop Top - Black",cat:"dress",price:299,old:599,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
 {name:"One Piece Dress - Flower",cat:"dress",price:449,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"Denim Jeans - Girls",cat:"dress",price:499,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
 {name:"Frock - Baby Pink",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400"},
 {name:"Palazzo Set - Party",cat:"dress",price:549,old:1099,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
-{name:"T-Shirt Combo (2 pc)",cat:"dress",price:349,old:699,img:"https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400"},
 {name:"Jhumka Earrings - Gold",cat:"dress",price:179,old:399,img:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400"},
 {name:"Handbag - Girls Stylish",cat:"dress",price:399,old:799,img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400"},
+{name:"Kurti Set - 2 pc",cat:"dress",price:499,old:999,img:"https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400"},
+{name:"Denim Jeans - Girls",cat:"dress",price:509,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400"},
 
-/* ===== MAKEUP - 6 OPTION ===== */
+/* ===== MAKEUP - 6 ===== */
 {name:"Lipstick Set (5 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400"},
 {name:"Makeup Kit Mini - Full",cat:"makeup",price:399,old:799,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
 {name:"Eyeliner + Kajal Combo",cat:"makeup",price:199,old:399,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
@@ -109,7 +155,7 @@ const products=[
 {name:"Nail Paint Set (6 pc)",cat:"makeup",price:179,old:349,img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400"},
 {name:"Brush Set (10 pc)",cat:"makeup",price:299,old:599,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400"},
 
-/* ===== WATCH - 5 OPTION ===== */
+/* ===== WATCH - 5 ===== */
 {name:"Girls Watch - Pink",cat:"watch",price:399,old:899,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"},
 {name:"Smart Watch - Black",cat:"watch",price:899,old:1999,img:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400"},
 {name:"Couple Watch Set",cat:"watch",price:599,old:1199,img:"https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400"},
