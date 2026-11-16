@@ -4,75 +4,92 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 header{background:#e91e63;color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:10}
-header h1{font-size:22px}header p{font-size:12px;opacity:.9}
+header h1{font-size:22px}header p{font-size:12px}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:10px;background:#fff;position:sticky;top:62px;z-index:9}
 .tabs button{white-space:nowrap;border:1px solid #e91e63;background:#fff;color:#e91e63;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:700}
 .tabs button.active{background:#e91e63;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:12px;padding-bottom:70px}
 .card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px #0001}
-.card img{width:100%;height:220px;object-fit:cover}
-.card .in{padding:10px}.card h3{font-size:14px;line-height:1.3;min-height:36px}
+.card img{width:100%;height:230px;object-fit:cover}
+.card .in{padding:10px}.card h3{font-size:13px;line-height:1.3;min-height:36px}
 .price{color:#e91e63;font-size:18px;font-weight:800;margin:6px 0}.price s{color:#999;font-size:13px}
-.tag{font-size:11px;background:#fff3e0;padding:3px 7px;border-radius:10px;display:inline-block}
+.tag{font-size:11px;background:#fff3e0;padding:3px 7px;border-radius:10px;display:inline-block;margin:1px}
 .star{font-size:12px;color:#ff9800}
-.btn{width:100%;background:#e91e63;color:#fff;border:0;padding:10px;border-radius:8px;font-weight:800;margin-top:8px;cursor:pointer}
-.btn2{width:100%;background:#25D366;color:#fff;border:0;padding:10px;border-radius:8px;font-weight:800;margin-top:6px;cursor:pointer}
-.cartbar{position:fixed;bottom:0;left:0;right:0;background:#e91e63;color:#fff;padding:12px;text-align:center;font-weight:800;cursor:pointer}
+.btn{width:100%;background:#e91e63;color:#fff;border:0;padding:10px;border-radius:8px;font-weight:800;margin-top:8px}
+.btn2{width:100%;background:#25D366;color:#fff;border:0;padding:10px;border-radius:8px;font-weight:800;margin-top:6px}
+.cartbar{position:fixed;bottom:0;left:0;right:0;background:#e91e63;color:#fff;padding:12px;text-align:center;font-weight:800}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style></head>
 <body>
-<header><h1>Vedika Shop ❤️</h1><p>Meesho Jaisa Sasta - Nagpur | Cash on Delivery</p></header>
-<div class="tabs" id="tabs"></div>
-<div class="grid" id="grid"></div>
-<div class="cartbar" onclick="order()">🛒 Cart - <span id="c">0</span> Item | WhatsApp Par Order Karo</div>
+<header><h1>Vedika Shop ❤️</h1><p>Nagpur | Cash on Delivery | 20 Pcs Available</p></header>
+<div class="tabs" id="tabs"></div><div class="grid" id="grid"></div>
+<div class="cartbar" onclick="order()">🛒 Cart - <span id="c">0</span> | WhatsApp Par Order Karo</div>
 <script>
 let cart=0;
 let P=[
-/* ===== MAKEUP - 1 EYELINER Rs150 - 10 PCS ===== */
-{name:"Lakme Ultimate Glam Eyeliner Black - 10 Pcs",cat:"makeup",price:150,old:299,img:"lakme-eyeliner.jpg",colors:"Black",pattern:"Lakme - 10 Pcs",rate:"4.5",cnt:"(5,200)"},
-{name:"Insight Intense Eyeliner Black - 10 Pcs",cat:"makeup",price:150,old:279,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"Insight - 10 Pcs",rate:"4.4",cnt:"(3,100)"},
-{name:"SUGAR Pop Eyeliner Black - 10 Pcs",cat:"makeup",price:150,old:299,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"SUGAR Pop - 10 Pcs",rate:"4.3",cnt:"(2,000)"},
-{name:"SUGAR Eyeliner Black - 10 Pcs",cat:"makeup",price:150,old:299,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"SUGAR - 10 Pcs",rate:"4.2",cnt:"(1,500)"},
+// ===== 1. WOMEN JEANS Rs499 - 20 PCS EACH =====
+{name:"Women Jeans Wide Leg - Blue - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600",colors:"Blue",pattern:"Wide Leg - 20 Pcs",rate:"4.5",cnt:"(2,100)"},
+{name:"Women Jeans Straight Fit - Black - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600",colors:"Black",pattern:"Straight Fit - 20 Pcs",rate:"4.4",cnt:"(1,800)"},
+{name:"Women Jeans Boot Leg Denim - Brown - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600",colors:"Brown",pattern:"Boot Leg Denim - 20 Pcs",rate:"4.3",cnt:"(900)"},
+{name:"Women Jeans Baggy - White - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=600",colors:"White",pattern:"Baggy - 20 Pcs",rate:"4.5",cnt:"(1,200)"},
+{name:"Women Jeans Kooty Baggy - Sky Blue - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=600",colors:"Sky Blue",pattern:"Kooty Baggy - 20 Pcs",rate:"4.4",cnt:"(1,500)"},
+{name:"Women Jeans Wide Leg - Dark Blue - 20 Pcs",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=600",colors:"Dark Blue",pattern:"Wide Leg - 20 Pcs",rate:"4.5",cnt:"(2,000)"},
+// ===== 1. MEN JEANS Rs499 - 20 PCS EACH =====
+{name:"Men Jeans Straight Fit - Blue - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=600",colors:"Blue",pattern:"Straight Fit - 20 Pcs",rate:"4.4",cnt:"(2,500)"},
+{name:"Men Jeans Baggy - Black - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1475178626620-a4d074967452?w=600",colors:"Black",pattern:"Baggy - 20 Pcs",rate:"4.3",cnt:"(1,900)"},
+{name:"Men Jeans Boot Leg Denim - Brown - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600",colors:"Brown",pattern:"Boot Leg - 20 Pcs",rate:"4.2",cnt:"(800)"},
+{name:"Men Jeans Wide Leg - White - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=600",colors:"White",pattern:"Wide Leg - 20 Pcs",rate:"4.3",cnt:"(700)"},
+{name:"Men Jeans Kooty Baggy - Sky Blue - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600",colors:"Sky Blue",pattern:"Kooty Baggy - 20 Pcs",rate:"4.4",cnt:"(1,100)"},
+{name:"Men Jeans Straight Fit - Dark Blue - 20 Pcs",cat:"men jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=600",colors:"Dark Blue",pattern:"Straight Fit - 20 Pcs",rate:"4.5",cnt:"(2,200)"},
 
-/* ===== MAKEUP - 2 LIPSTICK Rs200 - 10 PCS ===== */
-{name:"Lakme Cushion Matte Lipstick Red - 10 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600",colors:"Red, Maroon",pattern:"Lakme - 10 Pcs",rate:"4.4",cnt:"(4,000)"},
-{name:"MARS Creamy Matte Lipstick - 10 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600",colors:"Pink, Nude",pattern:"MARS - 10 Pcs",rate:"4.3",cnt:"(2,800)"},
-{name:"Insight Matte Lipstick - 10 Pcs",cat:"makeup",price:200,old:349,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600",colors:"Red, Pink",pattern:"Insight - 10 Pcs",rate:"4.2",cnt:"(2,100)"},
-{name:"SUGAR Matte Lipstick - 10 Pcs",cat:"makeup",price:200,old:499,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600",colors:"Nude, Brown",pattern:"SUGAR - 10 Pcs",rate:"4.1",cnt:"(1,900)"},
+// ===== 2. MAKEUP - LIPSTICK ALAG COLOR ALAG PHOTO - 20 PCS =====
+{name:"Lakme Lipstick Red - 20 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600",colors:"Red",pattern:"Lakme - 20 Pcs",rate:"4.5",cnt:"(4,000)"},
+{name:"Lakme Lipstick Pink - 20 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=600",colors:"Pink",pattern:"Lakme - 20 Pcs",rate:"4.4",cnt:"(3,200)"},
+{name:"MARS Lipstick Brown - 20 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600",colors:"Brown",pattern:"MARS - 20 Pcs",rate:"4.3",cnt:"(2,800)"},
+{name:"Insight Lipstick Light Nude - 20 Pcs",cat:"makeup",price:200,old:349,img:"https://images.unsplash.com/photo-1631214540242-3cd8a26b8b3f?w=600",colors:"Light Nude",pattern:"Insight - 20 Pcs",rate:"4.2",cnt:"(2,100)"},
+{name:"SUGAR Lipstick Maroon - 20 Pcs",cat:"makeup",price:200,old:499,img:"https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600",colors:"Maroon",pattern:"SUGAR - 20 Pcs",rate:"4.1",cnt:"(1,900)"},
+{name:"Lakme Eyeliner Black - 20 Pcs",cat:"makeup",price:150,old:299,img:"lakme-eyeliner.jpg",colors:"Black",pattern:"Lakme - 20 Pcs",rate:"4.5",cnt:"(5,200)"},
+{name:"Insight Eyeliner Black - 20 Pcs",cat:"makeup",price:150,old:279,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"Insight - 20 Pcs",rate:"4.4",cnt:"(3,100)"},
+{name:"Lakme Foundation Beige - 20 Pcs",cat:"makeup",price:300,old:599,img:"lakme-foundation.jpg",colors:"Beige",pattern:"Lakme - 20 Pcs",rate:"4.5",cnt:"(2,500)"},
+{name:"Insight Concealer Palette - 20 Pcs",cat:"makeup",price:300,old:599,img:"insight-palette.jpg",colors:"Multi",pattern:"Insight - 20 Pcs",rate:"4.4",cnt:"(1,900)"},
+{name:"Wishcare Lip Balm Tinted Pink - 20 Pcs",cat:"makeup",price:255,old:499,img:"wishcare.jpg",colors:"Tinted Pink",pattern:"Wishcare - 20 Pcs",rate:"4.5",cnt:"(3,800)"},
+{name:"Faces Strobe Cream Peach - 20 Pcs",cat:"makeup",price:280,old:499,img:"faces-strobe.jpg",colors:"Peach",pattern:"Faces Canada - 20 Pcs",rate:"4.5",cnt:"(2,900)"},
+{name:"Lakme Kajal Black - 20 Pcs",cat:"makeup",price:150,old:299,img:"https://images.unsplash.com/photo-1583001931096-959e9a1a6223?w=600",colors:"Black",pattern:"Lakme - 20 Pcs",rate:"4.5",cnt:"(5,000)"},
+{name:"Lakme Mascara Black - 20 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600",colors:"Black",pattern:"Lakme - 20 Pcs",rate:"4.4",cnt:"(2,500)"},
+{name:"Lakme Compact Beige - 20 Pcs",cat:"makeup",price:250,old:499,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Beige",pattern:"Lakme - 20 Pcs",rate:"4.3",cnt:"(2,000)"},
+{name:"Makeup Brush Kit 12 Pcs - 20 Pcs",cat:"makeup",price:150,old:299,img:"https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600",colors:"Multi",pattern:"Brush Kit - 20 Pcs",rate:"4.4",cnt:"(3,500)"},
+{name:"Insight Eyeshadow 12 Colour - 20 Pcs",cat:"makeup",price:250,old:499,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600",colors:"Multi",pattern:"Insight - 20 Pcs",rate:"4.3",cnt:"(1,300)"},
+{name:"MARS Blush Pink - 20 Pcs",cat:"makeup",price:250,old:449,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Pink",pattern:"MARS - 20 Pcs",rate:"4.2",cnt:"(900)"},
 
-/* ===== MAKEUP - 3 CONCEALER Rs300 - 10 PCS ===== */
-{name:"Insight Pro Concealer Palette Corrector - 10 Pcs",cat:"makeup",price:300,old:599,img:"insight-palette.jpg",colors:"Multi",pattern:"Insight - 10 Pcs",rate:"4.4",cnt:"(1,900)"},
+// ===== 3. TSHIRT - ALAG PHOTO - 20 PCS =====
+{name:"Women Tshirt Pink Oversized - 20 Pcs",cat:"women tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600",colors:"Pink",pattern:"Oversized - 20 Pcs",rate:"4.2",cnt:"(800)"},
+{name:"Women Tshirt White - 20 Pcs",cat:"women tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1554568218-0f1715e72254?w=600",colors:"White",pattern:"Regular - 20 Pcs",rate:"4.3",cnt:"(900)"},
+{name:"Women Tshirt Black - 20 Pcs",cat:"women tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600",colors:"Black",pattern:"Regular - 20 Pcs",rate:"4.4",cnt:"(700)"},
+{name:"Women Tshirt Sky Blue - 20 Pcs",cat:"women tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600",colors:"Sky Blue",pattern:"Oversized - 20 Pcs",rate:"4.2",cnt:"(600)"},
+{name:"Men Tshirt Black Plain - 20 Pcs",cat:"men tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",colors:"Black",pattern:"Plain - 20 Pcs",rate:"4.4",cnt:"(2,000)"},
+{name:"Men Tshirt White - 20 Pcs",cat:"men tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600",colors:"White",pattern:"Plain - 20 Pcs",rate:"4.3",cnt:"(1,500)"},
+{name:"Men Tshirt Blue - 20 Pcs",cat:"men tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600",colors:"Blue",pattern:"Oversized - 20 Pcs",rate:"4.4",cnt:"(1,200)"},
+{name:"Men Tshirt Brown - 20 Pcs",cat:"men tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600",colors:"Brown",pattern:"Regular - 20 Pcs",rate:"4.2",cnt:"(900)"},
 
-/* ===== MAKEUP - 4 WISHCARE Rs255 - 10 PCS ===== */
-{name:"Wishcare Ceramide Lip Balm Tinted SPF50 - 10 Pcs",cat:"makeup",price:255,old:499,img:"wishcare.jpg",colors:"Tinted Pink",pattern:"Wishcare - 10 Pcs",rate:"4.5",cnt:"(3,800)"},
+// ===== 4. SAREE - 10 PCS EACH =====
+{name:"Banarasi Saree Red - 10 Pcs",cat:"saree",price:899,old:1999,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600",colors:"Red, Maroon, Green",pattern:"Banarasi - 10 Pcs",rate:"4.6",cnt:"(2,000)"},
+{name:"Paithani Saree Green - 10 Pcs",cat:"saree",price:999,old:2199,img:"https://images.unsplash.com/photo-1610189844802-1a8d0a9c6c0e?w=600",colors:"Green, Yellow, Pink",pattern:"Paithani - 10 Pcs",rate:"4.7",cnt:"(1,800)"},
+{name:"Marathi Saree Nauvari Pink - 10 Pcs",cat:"saree",price:799,old:1799,img:"https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=600",colors:"Pink, Orange, Red",pattern:"Marathi Nauvari - 10 Pcs",rate:"4.6",cnt:"(1,500)"},
+{name:"Silk Saree Purple - 10 Pcs",cat:"saree",price:899,old:1999,img:"https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=600",colors:"Purple, Blue",pattern:"Silk - 10 Pcs",rate:"4.5",cnt:"(1,200)"},
+{name:"Georgette Saree Black - 10 Pcs",cat:"saree",price:699,old:1499,img:"https://images.unsplash.com/photo-1610030469668-8e9f641aaf27?w=600",colors:"Black, White, Sky Blue",pattern:"Georgette - 10 Pcs",rate:"4.4",cnt:"(1,100)"},
 
-/* ===== MAKEUP - 5 FACES CANADA Rs280 - 10 PCS ===== */
-{name:"Faces Canada Strobe Cream Mini 18ml Peach - 10 Pcs",cat:"makeup",price:280,old:499,img:"faces-strobe.jpg",colors:"Peach",pattern:"Faces Canada - 10 Pcs",rate:"4.5",cnt:"(2,900)"},
+// ===== 5. MENS FASHION =====
+{name:"Men Belt Black Leather - 10 Pcs",cat:"mens fashion",price:100,old:249,img:"https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=600",colors:"Black, Brown",pattern:"Belt - 10 Pcs",rate:"4.3",cnt:"(800)"},
+{name:"Men Wallet Brown - 10 Pcs",cat:"mens fashion",price:180,old:399,img:"https://images.unsplash.com/photo-1627123424574-724758594e93?w=600",colors:"Brown, Black",pattern:"Wallet - 10 Pcs",rate:"4.4",cnt:"(1,200)"},
+{name:"Men Goggles Black - 10 Pcs",cat:"mens fashion",price:100,old:299,img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",colors:"Black",pattern:"Goggles - 10 Pcs",rate:"4.2",cnt:"(900)"},
 
-/* ===== MAKEUP - 6 MASCARA / KAJAL / COMPACT / FOUNDATION - 10 PCS ===== */
-{name:"Lakme Ultimate Glam Foundation SPF8 - 10 Pcs",cat:"makeup",price:300,old:599,img:"lakme-foundation.jpg",colors:"Beige",pattern:"Lakme Foundation - 10 Pcs",rate:"4.5",cnt:"(2,500)"},
-{name:"Mascara Lakme Eyeconic - 10 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"Lakme Mascara - 10 Pcs",rate:"4.4",cnt:"(2,500)"},
-{name:"Mascara MARS Fabulash - 10 Pcs",cat:"makeup",price:200,old:399,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"MARS - 10 Pcs",rate:"4.3",cnt:"(1,800)"},
-{name:"Kajal Lakme Eyeconic - 10 Pcs",cat:"makeup",price:150,old:299,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"Lakme Kajal - 10 Pcs",rate:"4.5",cnt:"(5,000)"},
-{name:"Kajal Insight Jet Black - 10 Pcs",cat:"makeup",price:150,old:250,img:"https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600",colors:"Black",pattern:"Insight - 10 Pcs",rate:"4.4",cnt:"(3,200)"},
-{name:"Compact Lakme Absolute - 10 Pcs",cat:"makeup",price:250,old:499,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Beige",pattern:"Lakme Compact - 10 Pcs",rate:"4.3",cnt:"(2,000)"},
-{name:"Foundation Insight Matte - 10 Pcs",cat:"makeup",price:300,old:549,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Beige",pattern:"Insight - 10 Pcs",rate:"4.1",cnt:"(1,200)"},
-{name:"Blush MARS - 10 Pcs",cat:"makeup",price:250,old:449,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Pink, Peach",pattern:"MARS Blush - 10 Pcs",rate:"4.2",cnt:"(900)"},
-{name:"Eyeshadow Insight 12 Colour - 10 Pcs",cat:"makeup",price:250,old:499,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",colors:"Multi",pattern:"Insight - 10 Pcs",rate:"4.3",cnt:"(1,300)"},
-
-/* ===== WOMEN JEANS ===== */
-{name:"Women Jeans Blue Slim Fit",cat:"women jeans",price:499,old:999,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600",colors:"Blue",pattern:"Slim Fit",rate:"4.3",cnt:"(1,200)"},
-{name:"Women Jeans Black High Waist",cat:"women jeans",price:549,old:1099,img:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600",colors:"Black",pattern:"High Waist",rate:"4.4",cnt:"(900)"},
-/* ===== MEN JEANS ===== */
-{name:"Men Jeans Blue Regular",cat:"men jeans",price:549,old:1099,img:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=600",colors:"Blue",pattern:"Regular",rate:"4.3",cnt:"(1,500)"},
-/* ===== WOMEN TSHIRT ===== */
-{name:"Women Tshirt Pink Oversized",cat:"women tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600",colors:"Pink",pattern:"Oversized",rate:"4.2",cnt:"(800)"},
-/* ===== MEN TSHIRT ===== */
-{name:"Men Tshirt Black Plain",cat:"men tshirt",price:299,old:599,img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",colors:"Black",pattern:"Plain",rate:"4.4",cnt:"(2,000)"},
-/* ===== SAREE ===== */
-{name:"Saree Red Georgette",cat:"saree",price:699,old:1499,img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600",colors:"Red",pattern:"Georgette",rate:"4.5",cnt:"(1,100)"},
+// ===== 6. WOMEN FASHION =====
+{name:"Women Small Wallet Pink - 10 Pcs",cat:"women fashion",price:200,old:399,img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600",colors:"Pink, Red",pattern:"Wallet - 10 Pcs",rate:"4.4",cnt:"(1,000)"},
+{name:"Women Belt Black - 10 Pcs",cat:"women fashion",price:100,old:249,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",colors:"Black, Brown",pattern:"Belt - 10 Pcs",rate:"4.3",cnt:"(700)"},
+{name:"Women Earrings Gold - 10 Pcs",cat:"women fashion",price:100,old:299,img:"https://images.unsplash.com/photo-1573408301185-9146fe634d8f?w=600",colors:"Gold",pattern:"Earrings - 10 Pcs",rate:"4.5",cnt:"(2,000)"},
+{name:"Small Hair Pins Set - 10 Pcs",cat:"women fashion",price:50,old:149,img:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600",colors:"Multi",pattern:"Hair Pins - 10 Pcs",rate:"4.4",cnt:"(1,500)"},
 ];
-let cats=["all","makeup","women jeans","men jeans","women tshirt","men tshirt","saree"];
+let cats=["all","women jeans","men jeans","makeup","women tshirt","men tshirt","saree","mens fashion","women fashion"];
 let cur="all";
 function render(){
 let t=document.getElementById("tabs");t.innerHTML="";
@@ -84,5 +101,6 @@ g.innerHTML+=`<div class="card"><img src="${p.img}" onerror="this.src='https://i
 }
 function add(){cart++;document.getElementById("c").textContent=cart;alert("Cart me add ho gaya!")}
 function buy(n){window.open("https://wa.me/919999999999?text="+encodeURIComponent("Mujhe ye chahiye: "+n)," _blank")}
+function order(){if(cart==0)alert("Pehle kuch Add karo!");else buy("Cart me "+cart+" item hai")}
 render();
 </script></body></html>
